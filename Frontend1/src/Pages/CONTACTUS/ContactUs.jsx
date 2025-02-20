@@ -24,7 +24,7 @@ const ContactUs = () => {
     data.access_key = "007fd149-ccb4-4fcb-a57a-0b627d71f057";
 
     try {
-      const response = await fetch("http://localhost:3000/api/v1/contact/user", {
+      const response = await fetch("https://api.bookmygirl.in/api/v1/contact/user", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

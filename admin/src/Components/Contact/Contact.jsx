@@ -11,7 +11,7 @@ const Contact = () => {
 
     const getApiData = async () => {
         try {
-            let res = await axios.get("http://localhost:3000/api/v1/contact/user")
+            let res = await axios.get("https://api.bookmygirl.in/api/v1/contact/user")
             // console.log(res)
             setData(res.data.msg)
         } catch (error) {

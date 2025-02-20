@@ -21,12 +21,12 @@ app.use(express.json());
 app.use(express.static('./public'));
 app.use(cookieParser());
 app.use(
-    cors({
-      origin:["http://localhost:3002","http://localhost:3001"],
-      credentials: true,
-      methods: "GET,POST,DELETE,PATCH",
-      allowedHeaders: "Content-Type, Authorization",
-    })
+   cors({
+    origin: ["http://localhost:3001", "http://localhost:3000", "https://bookmygirl.in", "https://api.bookmygirl.in"],
+    credentials: true,
+    methods: "GET,POST,DELETE,PATCH",
+    allowedHeaders: "Content-Type, Authorization",
+  })
   );
   app.options('*', cors());
   
