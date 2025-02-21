@@ -8,7 +8,7 @@ const Userdetails = () => {
   const getApiData = async () => {
     try {
       let res = await axios.get(
-        "https://api.bookmygirl.in/api/v1/adminPanel/user/" + _id
+        "https://api.muslimmalikrishte.com/api/v1/adminPanel/user/" + _id
       );
       // console.log(res.data.user);
       setData(res.data.user);

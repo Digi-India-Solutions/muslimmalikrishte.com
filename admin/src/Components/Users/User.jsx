@@ -14,7 +14,7 @@ const User = () => {
   const getApiData = async () => {
     try {
       let res = await axios.get(
-        "https://api.bookmygirl.in/api/v1/adminPanel/allUsers"
+        "https://api.muslimmalikrishte.com/api/v1/adminPanel/allUsers"
       );
       const newData = res.data;
       setData(newData.reverse());
@@ -26,7 +26,7 @@ const User = () => {
   const deleteRecord = async (_id) => {
     try {
       let res = await axios.delete(
-        "https://api.bookmygirl.in/api/v1/adminPanel/updateUser/" + _id
+        "https://api.muslimmalikrishte.com/api/v1/adminPanel/updateUser/" + _id
       );
       if (res.status === 200) {
         toast.success("User Details Deleted Successfully");

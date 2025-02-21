@@ -12,7 +12,7 @@ const Bride = () => {
 
     const deleteRecord = async (_id) => {
         try {
-            const res = await axios.delete(`https://api.bookmygirl.in/api/v1/connectionRequest/delete/${_id}`)
+            const res = await axios.delete(`https://api.muslimmalikrishte.com/api/v1/connectionRequest/delete/${_id}`)
             if (res.status === 200) {
                 toast.success("Connection Deleted Successfully");
                 getApiData();
@@ -24,7 +24,7 @@ const Bride = () => {
 
     const getApiData = async () => {
         try {
-            const res = await axios.get("https://api.bookmygirl.in/api/v1/connectionRequest/allRequest");
+            const res = await axios.get("https://api.muslimmalikrishte.com/api/v1/connectionRequest/allRequest");
             console.log(res.data)
             const newData = res.data.all;
             setData(newData.reverse());
