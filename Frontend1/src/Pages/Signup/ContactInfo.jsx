@@ -66,7 +66,7 @@ const ContactInfo = ({ formData, handleChange, goToTab }) => {
     try {
       const otp = otp1.join('');
       console.log(email,otp);
-        const response = await axios.post('https://api.bookmygirl.in/api/v1/auth/verifyEmailOTP', { email, otp });
+        const response = await axios.post('https://api.muslimmalikrishte.com/api/v1/auth/verifyEmailOTP', { email, otp });
 
         if (response.data.message === 'OTP verified successfully') {
             Swal.fire({
@@ -101,7 +101,7 @@ const ContactInfo = ({ formData, handleChange, goToTab }) => {
     try {
         console.log("Sending email to:", email);
         
-        const response = await axios.post('https://api.bookmygirl.in/api/v1/auth/verifyEmail', { email });
+        const response = await axios.post('https://api.muslimmalikrishte.com/api/v1/auth/verifyEmail', { email });
 
         // alert("Email verification response:", response.data);
     } catch (error) {
