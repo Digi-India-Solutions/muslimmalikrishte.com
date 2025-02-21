@@ -22,7 +22,7 @@ app.use(express.static('./public'));
 app.use(cookieParser());
 app.use(
    cors({
-    origin: ["http://localhost:3001", "http://localhost:3000", "https://bookmygirl.in", "https://api.bookmygirl.in","https://admin.bookmygirl.in","https://www.bookmygirl.in"],
+    origin: ["http://localhost:3001", "http://localhost:3000", "https://muslimmalikrishte.com", "https://api.muslimmalikrishte.com","https://admin.muslimmalikrishte.com","https://www.muslimmalikrishte.com"],
     credentials: true,
     methods: "GET,POST,DELETE,PATCH",
     allowedHeaders: "Content-Type, Authorization",
