@@ -108,10 +108,10 @@ const RegisterUser = async (req, res) => {
     } else {
       if (req.body.gender == "Male")
         image =
-          "https://www.shareicon.net/data/256x256/2015/09/18/103160_man_512x512.png";
+          "https://res.cloudinary.com/dazh79fvz/image/upload/v1740128471/file-upload/tmp-3-1740128469153_umetps.jpg";
       else {
         image =
-          "https://clipart-library.com/new_gallery/136-1363501_girl-avatar-download-transparent-png-image-portable-network.png";
+          "https://res.cloudinary.com/dazh79fvz/image/upload/v1740128414/file-upload/tmp-2-1740128411962_bhl0fy.jpg";
       }
     }
     const {
