@@ -125,7 +125,7 @@ const InnerProfile = () => {
                 <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                   <h6 className="mb-0">
                     <i className="bi bi-arrow-bar-right"></i>
-                    Full Name
+                    Full name
                   </h6>
                   <span className="text-secondary">{dis.fullName}</span>
                 </li>
@@ -203,7 +203,7 @@ const InnerProfile = () => {
                 <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                   <h6 className="mb-0">
                     <i className="bi bi-arrow-bar-right"></i>
-                    Family Head
+                    Family head
                   </h6>
                   <span className="text-secondary">{dis.FamilyHead}</span>
                 </li>
@@ -311,7 +311,7 @@ const InnerProfile = () => {
             </div>
           </div>
           <h5 className="text-danger">
-            Note: Send Connection Request to Persone for Access Contact Details.
+            Note: Send a connection request to view contact details
           </h5>
           <div className="button-container my-3">
             <button
@@ -324,54 +324,7 @@ const InnerProfile = () => {
             
           </div>
         </div>
-        {/* <Modal
-          isOpen={isModalOpen}
-          onRequestClose={() => setModalOpen(false)}
-          style={{
-            content: {
-              top: "50%",
-              left: "50%",
-              right: "auto",
-              bottom: "auto",
-              marginRight: "-50%",
-              transform: "translate(-50%, -50%)",
-              textAlign: "center",
-              borderRadius: "10px",
-              padding: "20px",
-            },
-            overlay: { backgroundColor: "rgba(0, 0, 0, 0.5)" },
-          }}
-        >
-          <h2>Connect Request</h2>
-          <p>Before sending a connect request, check our plans.</p>
-          <Link to="/member">
-            <button
-              style={{
-                marginRight: "10px",
-                padding: "8px 16px",
-                background: "#800020",
-                color: "#fff",
-                border: "none",
-                borderRadius: "5px",
-              }}
-              onClick={() => alert("Redirecting to Plan page...")}
-            >
-              Purchase Now
-            </button>
-          </Link>
-          <button
-            style={{
-              padding: "8px 16px",
-              background: "#dc3545",
-              color: "#fff",
-              border: "none",
-              borderRadius: "5px",
-            }}
-            onClick={() => setModalOpen(false)}
-          >
-            Close
-          </button>
-        </Modal> */}
+      
       </div>
     </>
   );

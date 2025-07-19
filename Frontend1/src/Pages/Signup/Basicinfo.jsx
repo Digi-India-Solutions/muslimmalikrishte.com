@@ -45,7 +45,7 @@ const Basicinfo = ({ formData, handleChange, goToTab }) => {
             <div className="col-md-4 col-6 col-6">
               <div className="form-field">
                 <label htmlFor="fullName" className="label-main">
-                  Full Name <sup>*</sup>
+                  Full name <sup>*</sup>
                 </label>
                 <input
                   type="text"
@@ -178,7 +178,7 @@ const Basicinfo = ({ formData, handleChange, goToTab }) => {
             <div className="col-md-4">
               <div className="form-field gender-style">
                 <label htmlFor="maritalstatus" className="label-main">
-                  Married Status <sup>*</sup>
+                  Married status <sup>*</sup>
                 </label>
                 <select
                   id="maritalstatus"
@@ -202,7 +202,7 @@ const Basicinfo = ({ formData, handleChange, goToTab }) => {
             <div className="col-md-4 col-6">
               <div className="form-field gender-style">
                 <label htmlFor="FamilyHead" className="label-main">
-                  Family Head <sup>*</sup>
+                  Family head <sup>*</sup>
                 </label>
                 <select
                   id="FamilyHead"

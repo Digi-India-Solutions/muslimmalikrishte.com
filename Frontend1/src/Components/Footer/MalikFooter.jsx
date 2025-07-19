@@ -11,15 +11,17 @@ const quickLinks = [
   { text: "Membership", path: "/Member" },
 ];
 const quickLinks1 = [
-
   { text: "Contact Us", path: "/contactUs" },
   { text: "Term & Condition", path: "/termCondition" },
   { text: "Privacy & Policy", path: "/privacyPolicy" },
 ];
 const socialIcons = [
-  { icon: "bi-facebook", href: "#!" },
-  { icon: "bi-instagram", href: "#!" },
-  { icon: "bi-youtube", href: "#!" },
+  { icon: "bi-facebook", href: "https://www.facebook.com/share/19cbZegqD2/" },
+  {
+    icon: "bi-instagram",
+    href: "https://www.instagram.com/muslimmalikrishte?igsh=MTZ2Z3Ezem8zMXNmaQ==",
+  },
+  { icon: "bi-youtube", href: "https://www.youtube.com/@muslimmalikrishte" },
 ];
 
 const MalikFooter = () => {
@@ -36,7 +38,7 @@ const MalikFooter = () => {
                 <a
                   key={i}
                   href={social.href}
-                  className="ms-2"
+                  className="footer__social-icon"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -60,7 +62,7 @@ const MalikFooter = () => {
             </ul>
           </Col>
           {/* Quick Links */}
-          <Col lg={3}  className="mt-4">
+          <Col lg={3} className="mt-4">
             <h6 className="text-uppercase small">Quick Links</h6>
             <ul className="list-unstyled">
               {quickLinks1.map((link, i) => (
@@ -76,12 +78,12 @@ const MalikFooter = () => {
           <Col lg={3} className="malik__footer light">
             <h6 className="text-uppercase small">Phone</h6>
             <Link to="tel:9599467465" target="_blank">
-             9599467465
+              9599467465
             </Link>{" "}
             {/* Replace phoneNumber with your dynamic value */}
             <h6 className="text-uppercase small mt-2">Email</h6>
             <Link to="mailto:muslimmalikrishte@gmail.com" target="_blank">
-            muslimmalikrishte@gmail.com
+              muslimmalikrishte@gmail.com
             </Link>{" "}
             {/* Replace email with your dynamic value */}
             <h6 className="text-uppercase small mt-2">Address</h6>

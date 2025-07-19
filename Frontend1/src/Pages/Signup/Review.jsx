@@ -92,7 +92,7 @@ const Review = ({ formData, goToTab }) => {
         <div className="row">
           <div className="col-md-4">
             <div className="form-field">
-              <label className="label-main">Full Name</label>
+              <label className="label-main">Full name</label>
               <p className="Signup-Review">{formData.fullName}</p>
             </div>
             <div className="form-field">
@@ -124,7 +124,7 @@ const Review = ({ formData, goToTab }) => {
               <p className="Signup-Review">{formData.dob}</p>
             </div>
             <div className="form-field">
-              <label className="label-main">Married Status</label>
+              <label className="label-main">Married status</label>
               <p className="Signup-Review">{formData.maritalstatus}</p>
             </div>
             <div className="form-field">
@@ -135,11 +135,11 @@ const Review = ({ formData, goToTab }) => {
 
           <div className="col-md-4">
             <div className="form-field">
-              <label className="label-main">Family Head</label>
+              <label className="label-main">Family head</label>
               <p className="Signup-Review">{formData.FamilyHead}</p>
             </div>
             <div className="form-field">
-              <label className="label-main">Family Head Occupation</label>
+              <label className="label-main">Family head Occupation</label>
               <p className="Signup-Review">{formData.FamilyHeadOccupation}</p>
             </div>
             <div className="form-field">

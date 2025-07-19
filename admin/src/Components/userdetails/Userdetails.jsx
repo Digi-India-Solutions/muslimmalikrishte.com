@@ -43,7 +43,7 @@ const Userdetails = () => {
                 <td>{`MMR00${data.unqId}`}</td>
               </tr>
               <tr>
-                <th>Full Name</th>
+                <th>Full name</th>
                 <td>{data.fullName}</td>
               </tr>
               <tr>
@@ -101,11 +101,11 @@ const Userdetails = () => {
                 </th>
               </tr>
               <tr>
-                <th>Family Head</th>
+                <th>Family head</th>
                 <td>{data.FamilyHead}</td>
                 <th>Family Occupation Head</th>
                 <td>{data.FamilyHeadOccupation}</td>
-                <th>Married Status</th>
+                <th>Married status</th>
                 <td>{data.maritalstatus}</td>
               </tr>
 
