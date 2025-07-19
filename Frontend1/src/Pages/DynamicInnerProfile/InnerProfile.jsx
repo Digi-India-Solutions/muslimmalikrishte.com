@@ -77,7 +77,6 @@ const InnerProfile = () => {
       alert("Connection request sent successfully!");
       setIsRequestSent(true); // Disable button after successful request
     } catch (error) {
-
       console.error(
         "Error sending request:",
         error.response?.data?.msg || error.message
@@ -146,21 +145,21 @@ const InnerProfile = () => {
                 <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                   <h6 className="mb-0">
                     <i className="bi bi-arrow-bar-right"></i>
-                    Father Name
+                    Father name
                   </h6>
                   <span className="text-secondary">{dis.fatherName}</span>
                 </li>
                 <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                   <h6 className="mb-0">
                     <i className="bi bi-arrow-bar-right"></i>
-                    Mother Name
+                    Mother name
                   </h6>
                   <span className="text-secondary">{dis.motherName}</span>
                 </li>
                 <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                   <h6 className="mb-0">
                     <i className="bi bi-arrow-bar-right"></i>
-                    Grand Father Name
+                    Grand Father name
                   </h6>
                   <span className="text-secondary">{dis.GrandFatherName}</span>
                 </li>
@@ -196,7 +195,7 @@ const InnerProfile = () => {
                 <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                   <h6 className="mb-0">
                     <i className="bi bi-arrow-bar-right"></i>
-                    Marital Status
+                    Material status{" "}
                   </h6>
                   <span className="text-secondary">{dis.maritalstatus}</span>
                 </li>
@@ -282,7 +281,7 @@ const InnerProfile = () => {
                 <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                   <h6 className="mb-0">
                     <i className="bi bi-arrow-bar-right"></i>
-                    Pin Code
+                    Pin code
                   </h6>
                   <span className="text-secondary">{dis.pin}</span>
                 </li>
@@ -296,14 +295,14 @@ const InnerProfile = () => {
                 <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                   <h6 className="mb-0">
                     <i className="bi bi-arrow-bar-right"></i>
-                    Wedding Budget
+                    Wedding budget
                   </h6>
                   <span className="text-secondary">{dis.weddingBudget}</span>
                 </li>
                 <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                   <h6 className="mb-0">
                     <i className="bi bi-arrow-bar-right"></i>
-                    Wedding Style
+                    Wedding style
                   </h6>
                   <span className="text-secondary">{dis.weddingStyle}</span>
                 </li>
@@ -321,10 +320,8 @@ const InnerProfile = () => {
             >
               {isRequestSent ? "Request Sent" : "Connect Now"}
             </button>
-            
           </div>
         </div>
-      
       </div>
     </>
   );

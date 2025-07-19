@@ -297,7 +297,7 @@ const UserProfile = () => {
                     <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                       <h6 className="mb-0">
                         <i className="bi bi-arrow-bar-right"></i>
-                        Father Name
+                        Father name
                       </h6>
                       <span className="text-secondary">
                         {disData.fatherName}
@@ -306,7 +306,7 @@ const UserProfile = () => {
                     <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                       <h6 className="mb-0">
                         <i className="bi bi-arrow-bar-right"></i>
-                        Mother Name
+                        Mother name
                       </h6>
                       <span className="text-secondary">
                         {disData.motherName}
@@ -315,7 +315,7 @@ const UserProfile = () => {
                     <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                       <h6 className="mb-0">
                         <i className="bi bi-arrow-bar-right"></i>
-                        Date of Birth
+                        Date of birth
                       </h6>
                       <span className="text-secondary">{disData.dob}</span>
                     </li>
@@ -395,7 +395,7 @@ const UserProfile = () => {
                         <div className="row" key={key}>
                           <div className="col-sm-3">
                             <h6 className="mb-0">
-                              {key.replace(/_/g, " ").toUpperCase()}
+                              {key.replace(/_/g, " ").toLowerCase()}
                             </h6>
                           </div>
                           <div className="col-sm-9 text-secondary">{value}</div>
