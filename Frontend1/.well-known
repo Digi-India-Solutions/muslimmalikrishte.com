@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.wMuslimMalikRishte_19123545",
+      "sha256_cert_fingerprints": [
+        "5B:A8:66:B1:95:A0:A4:0F:27:70:0E:D8:1B:3A:70:E5:41:77:42:01:8F:78:CE:E6:2C:54:D3:CC:59:2D:DC:29"
+      ]
+    }
+  }
+]
