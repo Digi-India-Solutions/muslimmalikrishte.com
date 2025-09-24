@@ -111,7 +111,9 @@ const RegisterUser = async (req, res) => {
           "https://res.cloudinary.com/dazh79fvz/image/upload/v1740128471/file-upload/tmp-3-1740128469153_umetps.jpg";
       else {
         image =
-          "https://res.cloudinary.com/dazh79fvz/image/upload/v1740128414/file-upload/tmp-2-1740128411962_bhl0fy.jpg";
+          "https://res.cloudinary.com/ddik6bul3/image/upload/v1758708251/WhatsApp_Image_2025-09-24_at_3.02.20_PM_1_omakup.jpg";
+        // "https://res.cloudinary.com/dazh79fvz/image/upload/v1740128414/file-upload/tmp-2-1740128411962_bhl0fy.jpg";
+          
       }
     }
     const {
