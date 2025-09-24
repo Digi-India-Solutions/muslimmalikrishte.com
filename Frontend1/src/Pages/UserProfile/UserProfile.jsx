@@ -379,7 +379,7 @@ const UserProfile = () => {
                 <div className="card mb-3">
                   <div className="card-body">
                     {/* Profile Details */}
-                    {Object.entries(formData)
+                    {/* {Object.entries(formData)
                       .filter(
                         ([key]) =>
                           ![
@@ -401,7 +401,50 @@ const UserProfile = () => {
                           <div className="col-sm-9 text-secondary">{value}</div>
                           <hr />
                         </div>
-                      ))}
+                      ))} */}
+                      {Object.entries(formData)
+  .filter(
+    ([key]) =>
+      !["name", "fatherName", "motherName", "dob", "phone", "email"].includes(
+        key
+      )
+  )
+  .map(([key, value]) => {
+    const labelMap = {
+      fullName: "Full Name",
+      fatherName: "Father Name",
+      motherName: "Mother Name",
+      dob: "Date of Birth",
+      phone: "Phone",
+      email: "Email",
+      gender: "Gender",
+      age: "Age",
+      height: "Height",
+      MarriedStatus: "Marital Status",
+      belong: "Belong",
+      sibling: "Siblings",
+      education: "Education",
+      working: "Occupation",
+      income: "Annual Income",
+      address: "Address",
+      city: "City",
+      pin: "Pin Code",
+      budget: "Wedding Budget",
+      style: "Wedding Style",
+      familyHead: "Family Head",
+    };
+
+    return (
+      <div className="row" key={key}>
+        <div className="col-sm-3">
+          <h6 className="mb-0">{labelMap[key] || key}</h6>
+        </div>
+        <div className="col-sm-9 text-secondary">{value}</div>
+        <hr />
+      </div>
+    );
+  })}
+
                   </div>
                 </div>
               </div>
