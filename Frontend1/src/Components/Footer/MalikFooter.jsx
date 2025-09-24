@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Row, Col, Nav } from "react-bootstrap";
 import "./MalikFooter.css";
-import FooterLogo from "../../Assets/malikLogobgr.png";
+import FooterLogo from "../../Assets/logo12.png";
 import { Link } from "react-router-dom";
 
 const quickLinks = [
