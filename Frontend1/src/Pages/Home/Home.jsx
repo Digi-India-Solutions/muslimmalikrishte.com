@@ -4,7 +4,7 @@ import heroimage from "../../Assets/heroimage.png";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { Link } from "react-router-dom";
-import WeddingPlane from "../../Components/Planes/WeddingPlane";
+// import WeddingPlane from "../../Components/Planes/WeddingPlane";
 import WebsiteSubscribe from "../../Components/Subscribe/WebsiteSubscribe";
 import { Helmet } from "react-helmet";
 
@@ -144,12 +144,12 @@ const Home = () => {
         <StoryImages />
       </section> */}
       <section>
-        <WeddingPlane />
-        <div className="button-container">
+        {/* <WeddingPlane /> */}
+        {/* <div className="button-container">
           <Link to="/member">
             <button className="viewall-btn">View More</button>
           </Link>
-        </div>
+        </div> */}
       </section>
       {/* <section>
         <ImageGallery />
