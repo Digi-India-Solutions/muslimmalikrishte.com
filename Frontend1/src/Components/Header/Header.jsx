@@ -62,9 +62,9 @@ const Header = () => {
                 <Link to="/profilePage">PROFILES</Link>
               </li>
 
-              <li className="nav-links">
+              {/* <li className="nav-links">
                 <Link to="/member">MEMBERSHIP</Link>
-              </li>
+              </li> */}
 
               <li className="nav-links">
                 <Link to="/contactUs">CONTACT US</Link>
