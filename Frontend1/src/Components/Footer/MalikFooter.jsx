@@ -8,7 +8,7 @@ const quickLinks = [
   { text: "Home", path: "/" },
   { text: "Profile", path: "/ProfilePage" },
 
-  { text: "Membership", path: "/Member" },
+  // { text: "Membership", path: "/Member" },
 ];
 const quickLinks1 = [
   { text: "Contact Us", path: "/contactUs" },
