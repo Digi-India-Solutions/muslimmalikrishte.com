@@ -29,6 +29,9 @@ const Basicinfo = ({ formData, handleChange, goToTab }) => {
       "working",
       "house",
       "password",
+      "marriedBrother",
+      "marriedSister"
+
     ];
     const isValid = requiredFields.every(
       (field) => formData[field]?.trim() !== ""
@@ -364,6 +367,39 @@ const Basicinfo = ({ formData, handleChange, goToTab }) => {
           </div>
 
           <div className="row">
+            
+           <div className="col-md-4 col-6">
+              <div className="form-field">
+                <label htmlFor="marriedSister" className="label-main">
+                  Married Sisters<sup>*</sup>
+                </label>
+                <input
+                  type="number"
+                  id="marriedSister"
+                  name="marriedSister"
+                  min={1}
+                  value={formData.marriedSister}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            </div>
+            <div className="col-md-4 col-6">
+              <div className="form-field">
+                <label htmlFor="marriedBrother" className="label-main">
+                  Married Brother<sup>*</sup>
+                </label>
+                <input
+                  type="number"
+                  id="marriedBrother"
+                  name="marriedBrother"
+                  min={1}
+                  value={formData.marriedBrother}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            </div>
             <div className="col-md-4">
               <div className="form-field">
                 <label htmlFor="Password" className="label-main">
@@ -391,6 +427,7 @@ const Basicinfo = ({ formData, handleChange, goToTab }) => {
                 </button>
               </div>
             </div>
+          
           </div>
           <button
             type="button"

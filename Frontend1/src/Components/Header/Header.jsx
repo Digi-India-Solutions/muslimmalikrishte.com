@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom"; // Removed 'isCookie' (not needed)
 import "./Header.css";
-import websitelogo from "../../Assets/logo12.png";
+import websitelogo from "../../Assets/logo2.png";
 import whatsapp from "../../Assets/whatsapp.png";
 
 const Header = () => {
@@ -45,9 +45,9 @@ const Header = () => {
         </a>
       </div>
 
-      <div className="container-fluid nav-bg">
+      <div className="container-fluid  nav-bg">
         <nav className="navbar">
-          <div className="nav-left-data">
+          <div className="nav-left-data ">
             <Link to="/">
               <img src={websitelogo} alt="Muslim Malik Rishte Logo" />
             </Link>

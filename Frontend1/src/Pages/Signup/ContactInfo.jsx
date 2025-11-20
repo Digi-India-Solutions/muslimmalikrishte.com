@@ -234,7 +234,7 @@ const ContactInfo = ({ formData, handleChange, goToTab }) => {
               </div>
             </div>
 
-            <div className="col-md-4 col-6">
+            {/* <div className="col-md-4 col-6">
               <div className="form-field">
                 <label htmlFor="weddingBudget" className="label-main">
                   Wedding Budget
@@ -247,7 +247,64 @@ const ContactInfo = ({ formData, handleChange, goToTab }) => {
                   onChange={handleChange}
                 />
               </div>
-            </div>
+            </div> */}
+{/* <div className="col-md-4 col-6">
+  <div className="form-field">
+    <label htmlFor="weddingBudget" className="label-main">
+      Wedding Budget
+    </label>
+
+    <select
+      id="weddingBudget"
+      name="weddingBudget"
+      className="select-style"
+      value={formData.weddingBudget}
+      onChange={handleChange}
+    >
+      <option value="">Select Budget</option>
+      <option value="50K-2Lakh">50K - 2 Lakh</option>
+      <option value="2Lakh-5Lakh">2 Lakh - 5 Lakh</option>
+      <option value="5Lakh-10Lakh">5 Lakh - 10 Lakh</option>
+      <option value="10Lakh-20Lakh">10 Lakh - 20 Lakh</option>
+      <option value="20Lakh-40Lakh">20 Lakh - 40 Lakh</option>
+      <option value="40Lakh-70Lakh">40 Lakh - 70 Lakh</option>
+      <option value="70Lakh-1Crore">70 Lakh - 1 Crore +</option>
+    </select>
+  </div>
+</div> */}
+
+
+<div className="col-md-4 col-6">
+  <div className="form-field gender-style">
+    <label htmlFor="weddingBudget" className="label-main">
+      Wedding Budget
+    </label>
+
+    <select
+      id="weddingBudget"
+      name="weddingBudget"
+      className="select-style"
+      value={formData.weddingBudget}
+      onChange={handleChange}
+      required
+    >
+      <option value="">Select Budget</option>
+      <option value="50K-2Lakh">50K - 2 Lakh</option>
+      <option value="2Lakh-5Lakh">2 Lakh - 5 Lakh</option>
+      <option value="5Lakh-10Lakh">5 Lakh - 10 Lakh</option>
+      <option value="10Lakh-20Lakh">10 Lakh - 20 Lakh</option>
+      <option value="20Lakh-40Lakh">20 Lakh - 40 Lakh</option>
+      <option value="40Lakh-70Lakh">40 Lakh - 70 Lakh</option>
+      <option value="70Lakh-1Crore">70 Lakh - 1 Crore +</option>
+    </select>
+  </div>
+</div>
+
+            
+
+
+
+
 
             <div className="col-md-4">
               <div className="form-field gender-style">

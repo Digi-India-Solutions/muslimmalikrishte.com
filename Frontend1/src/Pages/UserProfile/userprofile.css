@@ -102,7 +102,9 @@
 }
 
 .modal-container {
-  background: white;
+  /* background: white; */
+  background: linear-gradient(145deg, #000000, #5f1717);
+  color: white;
   padding: 30px;
   border-radius: 10px;
   width: 90%;
@@ -204,6 +206,9 @@
     font-size: 11px;
   }
 
+  .modal-container{
+    top: 800px;
+  }
   .user-name {
     font-size: 1rem;
   }

@@ -35,7 +35,10 @@
   position: relative; /* Ensure positioning context for the pseudo-element */
   padding: 1.2rem;
   z-index: 10;
-  background-color: rgba(152, 5, 42, 0.626); /* Semi-transparent background */
+  background: linear-gradient(90deg, #000000ae, #5f1717b6);
+
+  /* background-color: rgba(152, 5, 42, 0.626); */
+   /* Semi-transparent background */
   border-radius: 1rem;
 }
 
@@ -63,8 +66,10 @@
 /* ============================================== */
 
 .bg-light-pink {
-  background-color: var(--bg-color); /* Light pink */
+  background: linear-gradient(90deg, #000000, #5f1717);
+   /* Light pink */
   padding: 6rem 2rem !important;
+  color:white;
 }
 
 .main-match-div {
@@ -88,16 +93,16 @@
   width: 7%; /* Ensure it spans the full parent */
   position: relative;
   aspect-ratio: 1;
-  background: radial-gradient(at 70% 31%, var(--font-color) 29%, #0000 30%),
-    radial-gradient(at 30% 31%, var(--font-color) 29%, #0000 30%),
-    linear-gradient(var(--font-color) 0 0) bottom/100% 50% no-repeat;
+  background: radial-gradient(at 70% 31%, var(--bg-color) 29%, #d5c9c900 30%),
+    radial-gradient(at 30% 31%, var(--bg-color) 29%, #ffffff00 30%),
+    linear-gradient(var(--bg-color) 0 0) bottom/100% 50% no-repeat;
   clip-path: polygon(-43% 0, 50% 91%, 143% 0);
   animation: heart-beat 1.5s infinite ease-in-out;
 }
 
 /* Icon Inside Heart */
 .match-icon .match-icon-color {
-  color: #f8e9ec; /* Light Pink */
+  color: brown; /* Light Pink */
   font-size: 1.5rem;
   position: relative;
   z-index: 1;
@@ -156,7 +161,10 @@
 }
 
 .match-heading h2 span {
-  color: var(--font-color); /* Optional: different color for the span text */
+  font-weight: 700;
+  color:transparent;                 /* fill color */
+  -webkit-text-stroke: 1px #ffffff;
+  /* color: var(--font-color); Optional: different color for the span text */
 }
 
 .hero-login {

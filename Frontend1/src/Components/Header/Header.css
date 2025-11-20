@@ -1,6 +1,7 @@
 /* General Navbar Styling */
 .nav-bg {
-  background-color: var(--font-color); /* Light background */
+  background: linear-gradient(90deg, #000000, #5f1717);
+
   position: relative;
 }
 
@@ -13,7 +14,8 @@
 }
 
 .nav-left-data img {
-  width: 70px;
+  padding: 5px;
+    width: 60px;
   cursor: pointer;
   transition: transform 0.3s ease;
 }
@@ -102,9 +104,11 @@
     padding: 0 !important;
   }
 
-  .nav-left-data {
-    margin: auto;
-  }
+.nav-left-data {
+  margin: 0 !important;
+  justify-content: flex-start !important;
+}
+
 
   .nav-center-data,
   .nav-right-data {

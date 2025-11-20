@@ -19,6 +19,7 @@ body {
 :root {
   --bg-color: #f7dde3;
   --font-color: #800020;
+  
 }
 
 input[type="number"]::-webkit-outer-spin-button,

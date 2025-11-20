@@ -116,8 +116,8 @@
 .btn-77 {
   -webkit-tap-highlight-color: transparent;
   -webkit-appearance: button;
-  background-color: var(--font-color);
-  background-image: none;
+  background: linear-gradient(90deg, #000000, #5f1717);
+  /* background-image: none; */
   letter-spacing: 2px;
   color: #fff;
   line-height: 1;

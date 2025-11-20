@@ -50,6 +50,12 @@ const UserSchema = new mongoose.Schema({
   Sistersiblings: {
     type: String,
   },
+  marriedSister :{
+    type:String,
+  },
+  marriedBrother:{
+    type:String,
+  },
   pehchan: {
     type: String,
   },
@@ -171,6 +177,6 @@ UserSchema.methods.comparePassword = async function (candidatePassword) {
 UserSchema.methods.createToken = function () {
   const token = jwt.sign({ userId: this._id, email: this.email, role: this.role, name: this.fullName ,gender:this.gender}, process.env.SECRCET, { expiresIn: process.env.Expires });
   return token;
-};
+};    
 
 module.exports = mongoose.model('User', UserSchema);

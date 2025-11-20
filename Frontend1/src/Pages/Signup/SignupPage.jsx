@@ -28,6 +28,8 @@ const SignupPage = () => {
     siblings: "",
     Sistersiblings: "",
     pehchan: "",
+    marriedSister:"",
+    marriedBrother:"",
 
     education: "",
     working: "",

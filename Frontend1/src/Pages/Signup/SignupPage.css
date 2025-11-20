@@ -28,7 +28,8 @@
   border: 1px solid rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  background: rgba(0, 0, 0, 0.5);
+  background: linear-gradient(90deg, #000000, #5f1717);
+
   border-radius: 10px;
   margin: 2rem auto;
 }

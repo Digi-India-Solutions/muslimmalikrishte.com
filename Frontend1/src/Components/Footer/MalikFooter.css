@@ -9,10 +9,19 @@
   }
   
   .malik__footer.light {
-    --bs-body-bg: #800020;
+    background: linear-gradient(90deg, #000000, #5f1717);
+
     --bs-body-color: #fff;
 
   }
+
+  .malik__footer.light1 {
+    background: transparent;
+
+    --bs-body-color: #fff;
+
+  }
+  
   
   .malik__footer.dark {
     --bs-body-color: #800020;

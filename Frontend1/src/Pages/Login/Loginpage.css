@@ -36,7 +36,8 @@
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(10px);
   /* background: rgba(0, 0, 0, 0.891); */
-  background: #800020;
+  background: linear-gradient(90deg, #000000, #5f1717);
+
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
 }
 
@@ -302,7 +303,12 @@ input[type="text"] {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: var(--font-color);
+  border:1px solid white;
+  background: linear-gradient(90deg, #000000, #5f1717);
+  color:white;
+
+  /* background: var(--font-color); */
+  
   padding: 20px;
   border-radius: 8px;
   max-width: 400px;
@@ -360,5 +366,10 @@ input[type="text"] {
   .popup-content .close-button {
     font-size: 14px;
     padding: 10px 15px;
+  }
+
+  .forgotBtn{
+    font-size: 13px !important;
+    color:green !important;
   }
 }

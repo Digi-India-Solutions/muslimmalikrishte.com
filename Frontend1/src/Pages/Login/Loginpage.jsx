@@ -143,7 +143,7 @@ const Loginpage = () => {
         timer: 1000,
         showConfirmButton: false,
       }).then(() => {
-        navigate("/");
+        navigate("/profilePage");
       });
     } catch (err) {
       setError("Invalid credentials. Please try again.");
@@ -187,7 +187,7 @@ const Loginpage = () => {
                 className="eye-icon"
                 onClick={togglePasswordVisibility}
               >
-                {passwordVisible ? "🙈" : "👁️"}
+                {passwordVisible ? "🔒" : "👁️"}
               </button>
             </div>
             {error && <p className="error-message">{error}</p>}{" "}
@@ -199,7 +199,7 @@ const Loginpage = () => {
               </label>
               <button
                 type="button"
-                className="link-button"
+                className="link-button forgotBtn"
                 onClick={() => setShowForgotPassword(true)}
               >
                 Forgot password?
@@ -260,24 +260,27 @@ const Loginpage = () => {
         <div className="form-container">
           <h2>Enter OTP</h2>
           <form onSubmit={handleOTPSubmit}>
-            <div className="input-field otp-field">
-              {[...Array(6)].map((_, index) => (
-                <input
-                  key={index}
-                  id={`otp-input-${index}`}
-                  type="text"
-                  maxLength="1"
-                  value={myToken[index] || ""}
-                  onChange={(e) => handleOtpChange(e.target.value, index)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Backspace" && !myToken[index]) {
-                      handleOtpChange("", index - 1);
-                    }
-                  }}
-                  className="otp-input"
-                />
-              ))}
-            </div>
+          <div className="input-field otp-field">
+  {[...Array(6)].map((_, index) => (
+    <input
+      key={index}
+      id={`otp-input-${index}`}
+      type="text"
+      inputMode="numeric"
+      pattern="[0-9]*"
+      maxLength="1"
+      value={myToken[index] || ""}
+      onChange={(e) => handleOtpChange(e.target.value.replace(/\D/, ''), index)}
+      onKeyDown={(e) => {
+        if (e.key === "Backspace" && !myToken[index]) {
+          handleOtpChange("", index - 1);
+        }
+      }}
+      className="otp-input"
+    />
+  ))}
+</div>
+
             {error && <p className="error-message">{error}</p>}
             <button type="submit" className="submit-button">
               Verify OTP

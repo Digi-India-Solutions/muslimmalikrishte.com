@@ -15,6 +15,24 @@ const ProfilePage = () => {
   const [allprf, SetAllPrf] = useState([]);
   const [cities, SetCities] = useState([]);
 
+
+
+
+  useEffect(() => {
+    const savedScroll = sessionStorage.getItem("profileScroll");
+    if (savedScroll) {
+      window.scrollTo(0, parseInt(savedScroll));
+      sessionStorage.removeItem("profileScroll"); // clear after restoring
+    }
+  }, []);
+  
+
+
+
+
+
+
+
   const getDETAILS = async () => {
     try {
       const response = await axiosInstance.get(
@@ -50,10 +68,8 @@ const ProfilePage = () => {
   };
 
   useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    const savedScroll = sessionStorage.getItem("profileScroll");
+  
     const userStatus = localStorage.getItem("user");
     if (userStatus) {
       getDETAILS();
@@ -61,7 +77,16 @@ const ProfilePage = () => {
     } else {
       getALLDETAILS();
     }
+  
+    // ⭐ Restore scroll only AFTER data loads
+    setTimeout(() => {
+      if (savedScroll) {
+        window.scrollTo(0, parseInt(savedScroll));
+        sessionStorage.removeItem("profileScroll");
+      }
+    }, 300);
   }, []);
+  
 
   const [isModalOpen, setModalOpen] = useState(false);
 
@@ -189,7 +214,7 @@ const ProfilePage = () => {
               </div>
 
               {/* Wedding Budget Range Slider */}
-              <div className="filter-item col-md-3 col-12">
+              {/* <div className="filter-item col-md-3 col-12">
                 <label htmlFor="budget">
                   Wedding Budget Range: ₹{filters.budget}
                 </label>
@@ -204,13 +229,39 @@ const ProfilePage = () => {
                   onChange={handleInputChange}
                   className="form-range"
                 />
+              </div> */}
+
+<div className="filter-item col-md-2 col-12">
+                <label htmlFor="gender">Wedding Budget</label>
+                <select
+                  id="gender"
+                  name="gender"
+                  value={filters.gender}
+                  onChange={handleInputChange}
+                  className="form-control"
+                >
+                  <option value=""> Select Budget</option>
+                  <option value="50k-2Lakh">50K - 2 Lakh</option>
+                  <option value="2Lakh-5Lakh">2L - 5Lakh</option>
+                  <option value="5Lakh-10Lakh">5L - 10Lakh</option>
+                  <option value="10Lakh-20Lakh">10L - 20Lakh</option>
+                  <option value="20Lakh-40Lakh">20L - 40Lakh</option>
+                  <option value="40Lakh-70Lakh">40L - 70Lakh</option>
+                  <option value="70Lakh-1Crore">70L - 1 Crore+</option>
+
+                </select>
+              </div>
+
+              <div className="filter-item col-md-2 col-12">
+                <label htmlFor="gender">Find By User Id : </label>
+                 <input type="text" placeholder="Search By Id "  className="form-control" />
               </div>
 
               {/* Submit Button */}
               <div className="col-md-1 col-12 text-center mt-md-0 mt-3">
                 <button
                   type="submit"
-                  className="btn-btn filter-submit"
+                  className="btn-btn filter-submit mt-4"
                   onClick={handlefilterSubmit}
                 >
                   Search
@@ -237,9 +288,10 @@ const ProfilePage = () => {
                         src={profile.image}
                         alt={profile.fullName}
                         onClick={() => {
-                          setModalOpen(true);
+                          sessionStorage.setItem("profileScroll", window.scrollY); // ⭐ Save scroll position
                           navigate(`/InnerProfile/${profile._id}`);
                         }}
+                        
                         className="profile-pic"
                       />
                     </div>
@@ -275,21 +327,27 @@ const ProfilePage = () => {
             ) : (
               <div className="profile-container">
                 {allprf.map((profile) => (
-                  <div className="profile-card col-md-3 mb-4" key={profile._id}>
+                 <div
+                 id={`profile-${profile._id}`} // unique for each profile
+                 className="profile-card col-md-3 col-sm-4 mb-4"
+                 key={profile._id}
+               >
                     <div
                       className="profile-image"
-                      style={{
-                        backgroundImage: `url(${profilebg})`,
-                      }}
+                      // style={{
+                      //   backgroundImage: `url(${profilebg})`,
+                      // }}
                     >
-                      <img
-                        src={profile.image}
-                        alt={profile.fullName}
-                        onClick={() => {
-                          setModalOpen(true);
-                        }}
-                        className="profile-pic"
-                      />
+                     <img
+  src={profile.image}
+  alt={profile.fullName}
+  onClick={() => {
+    sessionStorage.setItem("scrollToProfile", profile._id); // save clicked profile ID
+    navigate(`/InnerProfile/${profile._id}`);
+  }}
+  className="profile-pic"
+/>
+
                     </div>
                     <div className="profile-details">
                       <div className="details-row">

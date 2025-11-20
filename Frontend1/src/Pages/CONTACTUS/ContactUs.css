@@ -1,5 +1,7 @@
 .contact-form-section {
-    background: var(--font-color);   
+    /* background: var(--font-color);    */
+  background: linear-gradient(90deg, #000000, #5f1717);
+
      border-radius: 10px;
      padding: 0rem 3rem;
     margin: 2rem 0;

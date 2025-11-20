@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./Home.css";
 import heroimage from "../../Assets/heroimage.png";
+import mobimage from "../../Assets/Banner.png";
+
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { Link } from "react-router-dom";
@@ -8,7 +10,30 @@ import { Link } from "react-router-dom";
 import WebsiteSubscribe from "../../Components/Subscribe/WebsiteSubscribe";
 import { Helmet } from "react-helmet";
 
+
+
+
+
+
 const Home = () => {
+const [isMobile ,setIsMobile] = useState(false);
+
+
+useEffect(()=>{
+  const handleResize = ()=>{
+    setIsMobile(window.innerWidth <= 768) 
+  };
+
+handleResize();
+window.addEventListener("resize", handleResize);
+
+return ()=> window.removeEventListener("resize", handleResize);
+
+
+},[])
+
+
+
   useEffect(() => {
     AOS.init({
       offset: 200, // Offset from the top of the screen
@@ -60,7 +85,78 @@ const Home = () => {
         <meta name="twitter:image" content={heroimage} />
       </Helmet>
 
-      <div className="container-fluid p-0">
+      {isMobile ? (
+        // MOBILE VIEW
+        <div
+          className="mobile-hero d-flex flex-column justify-content-center align-items-center"
+          style={{
+            minHeight: "75vh",
+            background: "linear-gradient(145deg, #000000, #5f1717)",
+            color: "#fff",
+            textAlign: "center",
+            padding: "20px",
+          }}
+        >
+          <img
+            src={mobimage}
+            alt="Mobile Hero"
+            style={{ maxWidth: "80%", marginBottom: "20px" }}
+          />
+          <h1 style={{ fontSize: "1.8rem", marginBottom: "10px" }}>
+            Find Your Soulmate on Muslim Malik Rishte
+          </h1>
+          <p style={{ fontSize: "1rem" }}>
+            Directly Connect With Your Muslim Malik Community at Muslim Malik
+            Rishte
+          </p>
+          <p className="hero-paragraph"> Ab Sabhi Rishte Online</p>
+          <Link to="/profilePage">
+            <button
+              style={{
+                marginTop: "15px",
+                padding: "10px 20px",
+                fontSize: "1rem",
+                border: "none",
+                borderRadius: "5px",
+                backgroundColor: "#fff",
+                color: "#5f1717",
+              }}
+            >
+              Profiles
+            </button>
+          </Link>
+        </div>
+      ) : (
+        // DESKTOP VIEW
+        <div className="container-fluid p-0">
+          <div className="hero-img">
+            <img
+              src={heroimage}
+              alt="Muslim Malik Rishte Banner"
+              className="img-fluid"
+            />
+          </div>
+          <div className="hero-text">
+            <h1 className="hero-heading">
+              Find Your Soulmate on Muslim Malik Rishte
+            </h1>
+            <div className="hero-para-text">
+              <h5 className="hero-paragraph m-0">
+                Directly Connect With Your Muslim Malik Community at Muslim
+                Malik Rishte
+              </h5>
+              <h5 className="hero-paragraph"> Ab Sabhi Rishte Online</h5>
+            </div>
+            <Link to="/profilePage">
+              <button className="hero-login">Profiles</button>
+            </Link>
+          </div>
+        </div>
+      )}
+
+
+      
+      {/* <div className="container-fluid p-0">
         <div className="hero-img">
           <img
             src={heroimage}
@@ -83,7 +179,7 @@ const Home = () => {
       <button className="hero-login">Profiles</button>
      </Link>
         </div>
-      </div>
+      </div> */}
 
       <div className="container-fluid bg-light-pink">
         <div className="row">

@@ -456,7 +456,7 @@ const UserProfile = () => {
         <ReactModal
           isOpen={showModal}
           onRequestClose={() => setShowModal(false)}
-          className="modal-container"
+          className="modal-container "
           overlayClassName="modal-overlay"
         >
           <h2>Edit Profile</h2>
@@ -487,7 +487,7 @@ const UserProfile = () => {
                   accept="image/*"
                   name="image"
                   onChange={handleImageChange}
-                  className="btn btn-link"
+                  className="btn btn-link text-light text-decoration-none"
                 />
               </div>
             </div>

@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Row, Col, Nav } from "react-bootstrap";
 import "./MalikFooter.css";
-import FooterLogo from "../../Assets/logo12.png";
+import FooterLogo from "../../Assets/logo2.png";
 import { Link } from "react-router-dom";
 
 const quickLinks = [
@@ -75,7 +75,7 @@ const MalikFooter = () => {
             </ul>
           </Col>
           {/* Language and Currency */}
-          <Col lg={3} className="malik__footer light">
+          <Col lg={3} className="malik__footer light1">
             <h6 className="text-uppercase small">Phone</h6>
             <Link to="tel:9599467465" target="_blank">
               9599467465
