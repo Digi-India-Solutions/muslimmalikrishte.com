@@ -105,12 +105,19 @@ return ()=> window.removeEventListener("resize", handleResize);
           <h1 style={{ fontSize: "1.8rem", marginBottom: "10px" }}>
             Find Your Soulmate on Muslim Malik Rishte
           </h1>
-          <p style={{ fontSize: "1rem" }}>
+
+          <div className="mobiSubtitle">
+          <p style={{ fontSize: "0.8rem" }}>
             Directly Connect With Your Muslim Malik Community at Muslim Malik
             Rishte
           </p>
-          <p className="hero-paragraph"> Ab Sabhi Rishte Online</p>
-          <Link to="/profilePage">
+          <p className="hero-paragraph" style={{ fontSize: "0.8rem" }}> Ab Sabhi Rishte Online</p>
+        
+          </div>
+
+
+
+           <Link to="/profilePage">
             <button
               style={{
                 marginTop: "15px",
