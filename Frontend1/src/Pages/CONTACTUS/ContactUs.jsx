@@ -61,7 +61,7 @@ const ContactUs = () => {
   return (
     <>
       {/* Helmet for SEO */}
-      <Helmet>
+      {/* <Helmet>
         <title>Contact Us - Mushlim Muslim Malik Rishte</title>
         <meta
           name="description"
@@ -77,7 +77,7 @@ const ContactUs = () => {
             <p>&gt; Contact Us</p>
           </div>
         </div>
-      </section>
+      </section> */}
 
       <section>
         <div className="container">

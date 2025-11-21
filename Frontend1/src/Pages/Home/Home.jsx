@@ -128,30 +128,64 @@ return ()=> window.removeEventListener("resize", handleResize);
         </div>
       ) : (
         // DESKTOP VIEW
-        <div className="container-fluid p-0">
-          <div className="hero-img">
-            <img
-              src={heroimage}
+        // <div className="container-fluid p-0">
+        //   <div className="hero-img">
+        //     <img
+        //       src={heroimage}
+        //       alt="Muslim Malik Rishte Banner"
+        //       className="img-fluid"
+        //     />
+        //   </div>
+        //   <div className="hero-text">
+        //     <h1 className="hero-heading">
+        //       Find Your Soulmate on Muslim Malik Rishte
+        //     </h1>
+        //     <div className="hero-para-text">
+        //       <h5 className="hero-paragraph m-0">
+        //         Directly Connect With Your Muslim Malik Community at Muslim
+        //         Malik Rishte
+        //       </h5>
+        //       <h5 className="hero-paragraph"> Ab Sabhi Rishte Online</h5>
+        //     </div>
+        //     <Link to="/profilePage">
+        //       <button className="hero-login">Profiles</button>
+        //     </Link>
+        //   </div>
+        // </div>
+
+          <div className="MainBannerSection">
+             <div className="container p-0">
+              <div className="row">
+                <div className="col-md-8 leftCol">
+                  <div className="HomeLeftSec">
+                      <div className="MainTitle">
+                          <h2>Find Your Soulmate on Muslim Malik Rishte</h2>
+                      </div>
+
+                      <div className="MainSubtitle">
+                        <p>Directly Connect With Your Muslim Malik Community at Muslim Malik Rishte</p>
+                        <p>Ab Sabhi Rishte Online</p>
+                      </div>
+
+                  </div>
+                </div>
+                <div className="col-md-4">
+                  <div className="HomeRightSec">
+                          <div className="HomeBannerSec">
+                          <img
+              src={mobimage}
               alt="Muslim Malik Rishte Banner"
               className="img-fluid"
             />
+
+                          </div>
+                  </div>
+                </div>
+              </div>
+
+           </div>
+
           </div>
-          <div className="hero-text">
-            <h1 className="hero-heading">
-              Find Your Soulmate on Muslim Malik Rishte
-            </h1>
-            <div className="hero-para-text">
-              <h5 className="hero-paragraph m-0">
-                Directly Connect With Your Muslim Malik Community at Muslim
-                Malik Rishte
-              </h5>
-              <h5 className="hero-paragraph"> Ab Sabhi Rishte Online</h5>
-            </div>
-            <Link to="/profilePage">
-              <button className="hero-login">Profiles</button>
-            </Link>
-          </div>
-        </div>
       )}
 
 

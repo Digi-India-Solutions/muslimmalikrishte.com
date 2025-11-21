@@ -133,7 +133,7 @@ const ProfilePage = () => {
 
   return (
     <>
-      <Helmet>
+      {/* <Helmet>
         <title>Our Top Profiles</title>
         <meta
           name="description"
@@ -149,12 +149,12 @@ const ProfilePage = () => {
             <p>&gt; Profile</p>
           </div>
         </div>
-      </section>
+      </section> */}
 
       <section className="Profile-section">
         <div className="container">
           <div className="Heading">
-            <h2>Our Top Profiles</h2>
+            <h2>Explore Our Top Profiles</h2>
           </div>
 
           <div className="row filter-bar">
@@ -280,9 +280,9 @@ const ProfilePage = () => {
                   >
                     <div
                       className="profile-image"
-                      style={{
-                        backgroundImage: `url(${profilebg})`,
-                      }}
+                      // style={{
+                      //   backgroundImage: `url(${profilebg})`,
+                      // }}
                     >
                       <img
                         src={profile.image}
