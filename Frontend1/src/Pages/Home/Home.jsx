@@ -91,7 +91,7 @@ return ()=> window.removeEventListener("resize", handleResize);
           className="mobile-hero d-flex flex-column justify-content-center align-items-center"
           style={{
             minHeight: "75vh",
-            background: "linear-gradient(145deg, #000000, #5f1717)",
+            background: "linear-gradient(90deg, #000000, #5f1717)",
             color: "#fff",
             textAlign: "center",
             padding: "20px",
