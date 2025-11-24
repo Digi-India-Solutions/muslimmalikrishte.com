@@ -18,42 +18,77 @@ const oppUsers = async (req, res) => {
   }
 };
 
+// const filteredData = async (req, res) => {
+//   try {
+//     const { gender, age, city, budget } = req.body;
+
+//     console.log("req.body=>>", req.body);
+//     const all = await userModel.find(); 
+
+//     const filterData = all.filter(user =>
+//       (!gender || user.gender === gender) &&
+//       (!city || user.city === city) &&
+//       (!age || user.age >= age) &&
+//       (!budget || user.weddingBudget >= budget)
+//     ); // Apply correct filtering conditions
+
+//     // console.log(filterData);
+//     return res.status(200).json({ all: filterData });
+
+//   } catch (error) {
+//     return res.status(400).json({ error: error.message });
+//   }
+// };
+
 const filteredData = async (req, res) => {
   try {
-    const { gender, age, city, budget } = req.body;
+    const { gender, age, city, budget, unqId } = req.body;
+    console.log("SSSXXXXXXXSS:=>", req.body);
+    let id = null;
+    if (unqId) {
+      // Remove MMR or any letters, keep only digits
+      id = unqId.replace(/\D/g, "");   // "MMR0046" → "46"
+    }
+    // 🔥 Build MongoDB query (much faster than filtering in JS)
+    const query = {};
 
-    const all = await userModel.find(); // Fetch all users
+    if (gender) query.gender = gender;
 
-    const filterData = all.filter(user => 
-      (!gender || user.gender === gender) &&
-      (!city || user.city === city) &&
-      (!age || user.age >= age) &&
-      (!budget || user.weddingBudget >= budget)
-    ); // Apply correct filtering conditions
+    if (id && id.trim() !== "") {
+      query.unqId = id;     // direct match
+    }
 
-    // console.log(filterData);
-    return res.status(200).json({ all: filterData });
+    if (city && city.trim() !== "") query.city = city.trim();
+
+    if (age) query.age = { $gte: Number(age) };
+
+    if (budget) query.weddingBudget = { $gte: Number(budget) };
+
+    const users = await userModel.find(query);
+
+    return res.status(200).json({ success: true, total: users.length, data: users, });
 
   } catch (error) {
-    return res.status(400).json({ error: error.message });
+    console.error("Filter Error:", error);
+    return res.status(400).json({ success: false, error: error.message });
   }
 };
 
 
-const getSingleUser = async(req,res)=>{ // give user with id
+const getSingleUser = async (req, res) => { // give user with id
   const id = req.params.id;
-  const user = await userModel.findOne({_id:id});
-  if(!user) return res.status(400).json({msg:"user not found"});
-  return res.status(202).json({user:user});
+  const user = await userModel.findOne({ _id: id });
+  if (!user) return res.status(400).json({ msg: "user not found" });
+  return res.status(202).json({ user: user });
 }
 
-const allCities = async(req,res)=>{
+const allCities = async (req, res) => {
   try {
     const allCity = await userModel.find();
-    return res.status(200).json({city:allCity});
+    return res.status(200).json({ city: allCity });
   } catch (error) {
-    return res.status(502).json({error:error});
+    return res.status(502).json({ error: error });
   }
 }
 
-module.exports = { oppUsers ,filteredData,getSingleUser, allCities};
+module.exports = { oppUsers, filteredData, getSingleUser, allCities };

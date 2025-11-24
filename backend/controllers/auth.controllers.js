@@ -10,10 +10,9 @@ const nodemailer = require("nodemailer");
 const sentResetPasswordMail = async (name, email, myToken) => {
   try {
     const transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-      port: 587, // Use 587 for TLS
-      secure: false, // Use false for TLS
-      requireTLS: true, // Ensure TLS is used
+      host: process.env.EMAILHOST,
+      port: Number(process.env.EMAILPORT),
+      secure: true,
       auth: {
         user: process.env.EMAILUSER,
         pass: process.env.EMAILPASSWORD,
@@ -52,13 +51,13 @@ const sentResetPasswordMail = async (name, email, myToken) => {
     console.error("Error while sending email: ", error);
   }
 };
+
 const sentResetPasswordMail2 = async (email, myToken) => {
   try {
     const transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-      port: 587, // Use 587 for TLS
-      secure: false, // Use false for TLS
-      requireTLS: true, // Ensure TLS is used
+      host: process.env.EMAILHOST,
+      port: Number(process.env.EMAILPORT),
+      secure: true,
       auth: {
         user: process.env.EMAILUSER,
         pass: process.env.EMAILPASSWORD,
@@ -70,32 +69,134 @@ const sentResetPasswordMail2 = async (email, myToken) => {
       to: email,
       subject: "Email Verification - Muslim Malik Rishte",
       html: `
-                <p>Dear User</p>
-                <p>Thank you for joining <strong>Muslim Malik Rishte</strong>. To complete your registration, please use the following One-Time Password (OTP) to verify your email address:</p>
-                <h2 style="color: #007BFF;">${myToken}</h2>
-                <p>This OTP is valid for the next 10 minutes. Please do not share it with anyone for your account’s security.</p>
-                <p>If you did not request this, please ignore this email.</p>
-                <p>We’re excited to help you find your perfect match!</p>
-                <p>Warm regards,<br><strong>Team Muslim Malik Rishte</strong></p>
-            `,
+        <p>Dear User</p>
+        <p>Thank you for joining <strong>Muslim Malik Rishte</strong>. To complete your registration, please use the following One-Time Password (OTP) to verify your email address:</p>
+        <h2 style="color: #007BFF;">${myToken}</h2>
+        <p>This OTP is valid for the next 10 minutes. Please do not share it with anyone for your account’s security.</p>
+        <p>If you did not request this, please ignore this email.</p>
+        <p>Warm regards,<br><strong>Team Muslim Malik Rishte</strong></p>
+      `,
     };
 
-    transporter.sendMail(mailOptions, function (error, info) {
-      if (error) {
-        console.log(error);
-      } else {
-        console.log("Mail has been sent: ", info.response);
-      }
-    });
+    await transporter.sendMail(mailOptions);
+    console.log("Mail has been sent");
   } catch (error) {
     console.error("Error while sending email: ", error);
   }
 };
 
+// const RegisterUser = async (req, res) => {
+//   try {
+//     let image;
+//     if (req.files && req.files.image) {
+//       const result = await cloudinary.uploader.upload(
+//         req.files.image.tempFilePath,
+//         {
+//           use_filename: true,
+//           folder: "file-upload",
+//         }
+//       );
+//       fs.unlinkSync(req.files.image.tempFilePath);
+//       image = result.secure_url;
+//     } else {
+//       if (req.body.gender == "Male")
+//         image =
+//           "https://res.cloudinary.com/dazh79fvz/image/upload/v1740128471/file-upload/tmp-3-1740128469153_umetps.jpg";
+//       else {
+//         image =
+//           "https://res.cloudinary.com/ddik6bul3/image/upload/v1758708251/WhatsApp_Image_2025-09-24_at_3.02.20_PM_1_omakup.jpg";
+//         // "https://res.cloudinary.com/dazh79fvz/image/upload/v1740128414/file-upload/tmp-2-1740128411962_bhl0fy.jpg";
+
+//       }
+//     }
+//     const {
+//       fullName,
+//       age,
+//       gender,
+//       fatherName,
+//       motherName,
+//       GrandFatherName,
+//       height,
+//       dob,
+//       maritalstatus,
+//       FamilyHead,
+//       FamilyHeadOccupation,
+//       siblings,
+//       Sistersiblings,
+//       marriedSister,
+//       marriedBrother,
+//       pehchan,
+//       education,
+//       working,
+//       annualIncome,
+//       house,
+//       password,
+//       phone,
+//       email,
+//       area,
+//       city,
+//       state,
+//       pin,
+//       country,
+//       weddingBudget,
+//       weddingStyle,
+//       role,
+//     } = req.body;
+//     // Create a new user
+//     console.log("BODY:==>",req.body);
+//     const user = await UserModel.create({
+//       fullName,
+//       email,
+//       password,
+//       age,
+//       gender,
+//       fatherName,
+//       motherName,
+//       GrandFatherName,
+//       height,
+//       dob,
+//       maritalstatus,
+//       FamilyHead,
+//       FamilyHeadOccupation,
+//       siblings,
+//       Sistersiblings,
+//       marriedSister,
+//       marriedBrother,
+//       pehchan,
+//       education,
+//       working,
+//       annualIncome,
+//       house,
+//       phone,
+//       area,
+//       city,
+//       state,
+//       pin,
+//       country,
+//       weddingBudget,
+//       weddingStyle,
+//       role,
+//       image,
+//     });
+
+//     console.log(req.body)
+//     res.status(201).json({ message: "user created" });
+//   } catch (error) {
+//     return res.status(500).json({
+//       msg: " register failed",
+//       error: error.message,
+//     });
+//   }
+// };
+
 const RegisterUser = async (req, res) => {
   try {
     let image;
-    if (req.files && req.files.image) {
+
+    // ================================
+    // 1. HANDLE IMAGE UPLOAD
+    // ================================
+    if (req.files?.image) {
       const result = await cloudinary.uploader.upload(
         req.files.image.tempFilePath,
         {
@@ -103,97 +204,59 @@ const RegisterUser = async (req, res) => {
           folder: "file-upload",
         }
       );
-      fs.unlinkSync(req.files.image.tempFilePath);
+
+      // safely delete temp file
+      fs.unlink(req.files.image.tempFilePath, () => {});
       image = result.secure_url;
     } else {
-      if (req.body.gender == "Male")
+      const gender = req.body.gender?.toLowerCase();
+
+      if (gender === "male") {
         image =
           "https://res.cloudinary.com/dazh79fvz/image/upload/v1740128471/file-upload/tmp-3-1740128469153_umetps.jpg";
-      else {
+      } else {
         image =
           "https://res.cloudinary.com/ddik6bul3/image/upload/v1758708251/WhatsApp_Image_2025-09-24_at_3.02.20_PM_1_omakup.jpg";
-        // "https://res.cloudinary.com/dazh79fvz/image/upload/v1740128414/file-upload/tmp-2-1740128411962_bhl0fy.jpg";
-          
       }
     }
-    const {
-      fullName,
-      age,
-      gender,
-      fatherName,
-      motherName,
-      GrandFatherName,
-      height,
-      dob,
-      maritalstatus,
-      FamilyHead,
-      FamilyHeadOccupation,
-      siblings,
-      Sistersiblings,
-      marriedSister,
-      marriedBrother,
-      pehchan,
-      education,
-      working,
-      annualIncome,
-      house,
-      password,
-      phone,
-      email,
-      area,
-      city,
-      state,
-      pin,
-      country,
-      weddingBudget,
-      weddingStyle,
-      role,
-    } = req.body;
-    // Create a new user
-    const user = await UserModel.create({
-      fullName,
-      email,
-      password,
-      age,
-      gender,
-      fatherName,
-      motherName,
-      GrandFatherName,
-      height,
-      dob,
-      maritalstatus,
-      FamilyHead,
-      FamilyHeadOccupation,
-      siblings,
-      Sistersiblings,
-      marriedSister,
-      marriedBrother,
-      pehchan,
-      education,
-      working,
-      annualIncome,
-      house,
-      phone,
-      area,
-      city,
-      state,
-      pin,
-      country,
-      weddingBudget,
-      weddingStyle,
-      role,
-      image,
-    });
 
-    console.log(req.body)
-    res.status(201).json({ message: "user created" });
+    // ================================
+    // 2. CHECK USER EXISTS
+    // ================================
+    const { email, password } = req.body;
+
+    const existing = await UserModel.findOne({ email });
+    if (existing) {
+      return res.status(400).json({ msg: "Email already registered" });
+    }
+
+    // ================================
+    // 3. HASH PASSWORD
+    // ================================
+    // const hashedPassword = await bcrypt.hash(password, 10);
+
+    // ================================
+    // 4. CREATE USER
+    // ================================
+    const userData = {
+      ...req.body,
+      image,
+      password: password,
+    };
+
+    await UserModel.create(userData);
+
+    return res.status(201).json({ message: "user created" });
+
   } catch (error) {
+    console.error("REGISTER ERROR:", error);
     return res.status(500).json({
-      msg: " register failed",
+      msg: "register failed",
       error: error.message,
     });
   }
 };
+
 
 const LoginUser = async (req, res) => {
   try {

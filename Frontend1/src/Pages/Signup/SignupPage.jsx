@@ -28,8 +28,8 @@ const SignupPage = () => {
     siblings: "",
     Sistersiblings: "",
     pehchan: "",
-    marriedSister:"",
-    marriedBrother:"",
+    marriedSister: "",
+    marriedBrother: "",
 
     education: "",
     working: "",
@@ -51,7 +51,7 @@ const SignupPage = () => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
-
+  console.log('SINUPDATA:=>', formData)
   const goToTab = (tabIndex) => {
     setCurrentTab(tabIndex);
   };
@@ -72,21 +72,21 @@ const SignupPage = () => {
                   <a
                     className={
                       currentTab === 1 ? "tab-link active" : "tab-link"
-                    
-                    
+
+
                     }
-                    // onClick={() => goToTab(1)}
+                  // onClick={() => goToTab(1)}
                   >
                     Personal Details
                   </a>
                 </li>
                 <li>
                   <a
-                   
+
                     className={
                       currentTab === 2 ? "tab-link active" : "tab-link"
                     }
-                    // onClick={() => goToTab(2)}
+                  // onClick={() => goToTab(2)}
                   >
                     Other  Details
                   </a>
@@ -97,7 +97,7 @@ const SignupPage = () => {
                     className={
                       currentTab === 3 ? "tab-link active" : "tab-link"
                     }
-                    // onClick={() => goToTab(3)}
+                  // onClick={() => goToTab(3)}
                   >
                     Review
                   </a>
@@ -122,7 +122,7 @@ const SignupPage = () => {
                 />
               )}
 
-              {currentTab === 3 && <Review formData={formData}  goToTab={goToTab} />}
+              {currentTab === 3 && <Review formData={formData} goToTab={goToTab} />}
             </div>
           </div>
         </div>

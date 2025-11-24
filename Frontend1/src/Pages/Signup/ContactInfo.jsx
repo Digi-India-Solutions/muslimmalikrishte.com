@@ -8,7 +8,7 @@ Modal.setAppElement("#root"); // Required for accessibility
 
 const ContactInfo = ({ formData, handleChange, goToTab }) => {
   const [isFormValid, setIsFormValid] = useState(false);
-  const [shw,SetShw] = useState(0);
+  const [shw, SetShw] = useState(0);
 
   useEffect(() => {
     window.scrollTo({
@@ -65,49 +65,49 @@ const ContactInfo = ({ formData, handleChange, goToTab }) => {
   const handleVerifyEmail = async (email, otp1) => {
     try {
       const otp = otp1.join('');
-      console.log(email,otp);
-        const response = await axios.post('https://api.muslimmalikrishte.com/api/v1/auth/verifyEmailOTP', { email, otp });
+      console.log(email, otp);
+      const response = await axios.post('https://api.muslimmalikrishte.com/api/v1/auth/verifyEmailOTP', { email, otp });
 
-        if (response.data.message === 'OTP verified successfully') {
-            Swal.fire({
-                title: "OTP Verified Successfully!",
-                text: "Your email has been verified.",
-                icon: "success",
-                confirmButtonText: "OK",
-            });
-            SetShw(1);
-            setIsModalOpen(false);
-        } else {
-            Swal.fire({
-                title: "OTP Verification Failed!",
-                text: "Please enter the correct OTP.",
-                icon: "error",
-                confirmButtonText: "Retry",
-            });
-        }
-    } catch (error) {
-        console.error("Error verifying OTP:", error.response?.data || error.message);
+      if (response.data.message === 'OTP verified successfully') {
         Swal.fire({
-            title: "Verification Error!",
-            text: error.response?.data?.error || "Something went wrong. Please try again.",
-            icon: "error",
-            confirmButtonText: "Retry",
+          title: "OTP Verified Successfully!",
+          text: "Your email has been verified.",
+          icon: "success",
+          confirmButtonText: "OK",
         });
+        SetShw(1);
+        setIsModalOpen(false);
+      } else {
+        Swal.fire({
+          title: "OTP Verification Failed!",
+          text: "Please enter the correct OTP.",
+          icon: "error",
+          confirmButtonText: "Retry",
+        });
+      }
+    } catch (error) {
+      console.error("Error verifying OTP:", error.response?.data || error.message);
+      Swal.fire({
+        title: "Verification Error!",
+        text: error.response?.data?.error || "Something went wrong. Please try again.",
+        icon: "error",
+        confirmButtonText: "Retry",
+      });
     }
-};
+  };
 
 
   const sendMail = async (email) => {
     try {
-        console.log("Sending email to:", email);
-        
-        const response = await axios.post('https://api.muslimmalikrishte.com/api/v1/auth/verifyEmail', { email });
+      console.log("Sending email to:", email);
 
-        // alert("Email verification response:", response.data);
+      const response = await axios.post('https://api.muslimmalikrishte.com/api/v1/auth/verifyEmail', { email });
+
+      // alert("Email verification response:", response.data);
     } catch (error) {
-        console.error("Error sending email:", error.response?.data || error.message);
+      console.error("Error sending email:", error.response?.data || error.message);
     }
-};
+  };
 
 
   return (
@@ -248,7 +248,7 @@ const ContactInfo = ({ formData, handleChange, goToTab }) => {
                 />
               </div>
             </div> */}
-{/* <div className="col-md-4 col-6">
+            {/* <div className="col-md-4 col-6">
   <div className="form-field">
     <label htmlFor="weddingBudget" className="label-main">
       Wedding Budget
@@ -274,33 +274,33 @@ const ContactInfo = ({ formData, handleChange, goToTab }) => {
 </div> */}
 
 
-<div className="col-md-4 col-6">
-  <div className="form-field gender-style">
-    <label htmlFor="weddingBudget" className="label-main">
-      Wedding Budget
-    </label>
+            <div className="col-md-4 col-6">
+              <div className="form-field gender-style">
+                <label htmlFor="weddingBudget" className="label-main">
+                  Wedding Budget
+                </label>
 
-    <select
-      id="weddingBudget"
-      name="weddingBudget"
-      className="select-style"
-      value={formData.weddingBudget}
-      onChange={handleChange}
-      required
-    >
-      <option value="">Select Budget</option>
-      <option value="50K-2Lakh">50K - 2 Lakh</option>
-      <option value="2Lakh-5Lakh">2 Lakh - 5 Lakh</option>
-      <option value="5Lakh-10Lakh">5 Lakh - 10 Lakh</option>
-      <option value="10Lakh-20Lakh">10 Lakh - 20 Lakh</option>
-      <option value="20Lakh-40Lakh">20 Lakh - 40 Lakh</option>
-      <option value="40Lakh-70Lakh">40 Lakh - 70 Lakh</option>
-      <option value="70Lakh-1Crore">70 Lakh - 1 Crore +</option>
-    </select>
-  </div>
-</div>
+                <select
+                  id="weddingBudget"
+                  name="weddingBudget"
+                  className="select-style"
+                  value={formData.weddingBudget}
+                  onChange={handleChange}
+                  required
+                >
+                  <option value="">Select Budget</option>
+                  <option value={200000}>50K - 2 Lakh</option>
+                  <option value={500000}>2 Lakh - 5 Lakh</option>
+                  <option value={1000000}>5 Lakh - 10 Lakh</option>
+                  <option value={2000000}>10 Lakh - 20 Lakh</option>
+                  <option value={4000000}>20 Lakh - 40 Lakh</option>
+                  <option value={7000000}>40 Lakh - 70 Lakh</option>
+                  <option value={10000000}>70 Lakh - 1 Crore +</option>
+                </select>
+              </div>
+            </div>
 
-            
+
 
 
 
@@ -355,28 +355,28 @@ const ContactInfo = ({ formData, handleChange, goToTab }) => {
           >
             Back
           </button>
-{ shw?
-          <button
-            type="button"
-            className="next-btn login-page-btn"
-            onClick={() => goToTab(3)}
-            disabled={!isFormValid}
-            title={!isFormValid ? "Please fill all mandatory fields." : ""} // ✅ Shows message when disabled
-          >
-            Next
-          </button>
-:
-          <button
-            type="button"
-            className="btn bg-info mx-2"
-            onClick={() => {
-              sendMail(formData.email); 
-              openModal(); 
-            }}
-          >
-            Verify Email
-          </button>
-}
+          {shw ?
+            <button
+              type="button"
+              className="next-btn login-page-btn"
+              onClick={() => goToTab(3)}
+              disabled={!isFormValid}
+              title={!isFormValid ? "Please fill all mandatory fields." : ""} // ✅ Shows message when disabled
+            >
+              Next
+            </button>
+            :
+            <button
+              type="button"
+              className="btn bg-info mx-2"
+              onClick={() => {
+                sendMail(formData.email);
+                openModal();
+              }}
+            >
+              Verify Email
+            </button>
+          }
         </form>
 
         <Modal
@@ -409,7 +409,7 @@ const ContactInfo = ({ formData, handleChange, goToTab }) => {
             <button
               type="button"
               className="verfity-btn"
-              onClick={() => handleVerifyEmail(formData.email,otp)} // Pass true for success, false for error
+              onClick={() => handleVerifyEmail(formData.email, otp)} // Pass true for success, false for error
             >
               Verify Email
             </button>

@@ -12,11 +12,8 @@ Modal.setAppElement("#root");
 const ProfilePage = () => {
   const navigate = useNavigate();
   const [prf, SetPrf] = useState([]);
-  const [allprf, SetAllPrf] = useState([]);
+  const [allprf, setAllPrf] = useState([]);
   const [cities, SetCities] = useState([]);
-
-
-
 
   useEffect(() => {
     const savedScroll = sessionStorage.getItem("profileScroll");
@@ -25,11 +22,6 @@ const ProfilePage = () => {
       sessionStorage.removeItem("profileScroll"); // clear after restoring
     }
   }, []);
-  
-
-
-
-
 
 
 
@@ -38,8 +30,8 @@ const ProfilePage = () => {
       const response = await axiosInstance.get(
         "/api/v1/profiles/opposite/users"
       );
-      // console.log("adta is",response.data.opp);
-      SetPrf(response.data.opp);
+      console.log("adta is==>", response.data);
+      setAllPrf(response.data.opp);
     } catch (error) {
       console.log(error);
     }
@@ -48,8 +40,8 @@ const ProfilePage = () => {
   const getALLDETAILS = async () => {
     try {
       const response = await axiosInstance.get("/api/v1/adminPanel/allUsers");
-      // console.log("adta is",response.data.opp);
-      SetAllPrf(response.data);
+      console.log("adta is==>", response.data);
+      setAllPrf(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -69,7 +61,7 @@ const ProfilePage = () => {
 
   useEffect(() => {
     const savedScroll = sessionStorage.getItem("profileScroll");
-  
+
     const userStatus = localStorage.getItem("user");
     if (userStatus) {
       getDETAILS();
@@ -77,7 +69,7 @@ const ProfilePage = () => {
     } else {
       getALLDETAILS();
     }
-  
+
     // ⭐ Restore scroll only AFTER data loads
     setTimeout(() => {
       if (savedScroll) {
@@ -86,7 +78,7 @@ const ProfilePage = () => {
       }
     }, 300);
   }, []);
-  
+
 
   const [isModalOpen, setModalOpen] = useState(false);
 
@@ -95,6 +87,7 @@ const ProfilePage = () => {
     age: 25,
     city: "",
     budget: 100000,
+    unqId: "",
   });
 
   const handleInputChange = (e) => {
@@ -113,17 +106,28 @@ const ProfilePage = () => {
 
   const handlefilterSubmit = async () => {
     try {
-      const response = await axiosInstance.post(
-        "/api/v1/profiles/profiles/filter",
-        filters, // Make sure 'filters' contains gender, age, city, and budget
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      console.log("Filtered Users:", response.data.all);
-      SetPrf(response.data.all);
+      if (localStorage.getItem("user")) {
+        const response = await axiosInstance.post(
+          "/api/v1/profiles/profiles/filter",
+          filters, // Make sure 'filters' contains gender, age, city, and budget
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        setAllPrf(response?.data?.data);
+      } else {
+        const filterData = allprf.filter(user =>
+          (!filters.gender || user.gender === filters.gender) &&
+          (!filters.city || user.city === filters.city) &&
+          (!filters.age || user.age >= filters.age) &&
+          (!filters.budget || user.weddingBudget >= filters.budget)
+        ); // Apply correct filtering conditions
+        setAllPrf(filterData);
+      }
+
+      // setAllPrf(response?.data.all);
       // Handle the response (e.g., set the filtered users in state to render them)
     } catch (error) {
       console.error("Error applying filters:", error);
@@ -231,30 +235,29 @@ const ProfilePage = () => {
                 />
               </div> */}
 
-<div className="filter-item col-md-2 col-12">
-                <label htmlFor="gender">Wedding Budget</label>
+              <div className="filter-item col-md-2 col-12">
+                <label htmlFor="budget">Wedding Budget</label>
                 <select
-                  id="gender"
-                  name="gender"
-                  value={filters.gender}
+                  id="budget"
+                  name="budget"
+                  value={filters.budget}
                   onChange={handleInputChange}
                   className="form-control"
                 >
                   <option value=""> Select Budget</option>
-                  <option value="50k-2Lakh">50K - 2 Lakh</option>
-                  <option value="2Lakh-5Lakh">2L - 5Lakh</option>
-                  <option value="5Lakh-10Lakh">5L - 10Lakh</option>
-                  <option value="10Lakh-20Lakh">10L - 20Lakh</option>
-                  <option value="20Lakh-40Lakh">20L - 40Lakh</option>
-                  <option value="40Lakh-70Lakh">40L - 70Lakh</option>
-                  <option value="70Lakh-1Crore">70L - 1 Crore+</option>
-
+                  <option value={200000}>50K - 2 Lakh</option>
+                  <option value={500000}>2L - 5Lakh</option>
+                  <option value={1000000}>5L - 10Lakh</option>
+                  <option value={2000000}>10L - 20Lakh</option>
+                  <option value={4000000}>20L - 40Lakh</option>
+                  <option value={7000000}>40L - 70Lakh</option>
+                  <option value={10000000}>70L - 1 Crore+</option>
                 </select>
               </div>
 
               <div className="filter-item col-md-2 col-12">
                 <label htmlFor="gender">Find By User Id : </label>
-                 <input type="text" placeholder="Search By Id "  className="form-control" />
+                <input type="text" name="unqId" onChange={handleInputChange} placeholder="Search By Id " className="form-control" />
               </div>
 
               {/* Submit Button */}
@@ -271,7 +274,7 @@ const ProfilePage = () => {
           </div>
 
           <div className="row">
-            {localStorage.getItem("user") ? (
+            {/* {localStorage.getItem("user") ? (
               <div className="profile-container">
                 {prf.map((profile) => (
                   <div
@@ -280,9 +283,9 @@ const ProfilePage = () => {
                   >
                     <div
                       className="profile-image"
-                      // style={{
-                      //   backgroundImage: `url(${profilebg})`,
-                      // }}
+                    // style={{
+                    //   backgroundImage: `url(${profilebg})`,
+                    // }}
                     >
                       <img
                         src={profile.image}
@@ -291,7 +294,7 @@ const ProfilePage = () => {
                           sessionStorage.setItem("profileScroll", window.scrollY); // ⭐ Save scroll position
                           navigate(`/InnerProfile/${profile._id}`);
                         }}
-                        
+
                         className="profile-pic"
                       />
                     </div>
@@ -299,7 +302,7 @@ const ProfilePage = () => {
                       <div className="details-row">
                         <p>
                           <strong>User ID: </strong>
-                          {`MMR00${profile.unqId}`}
+                          {`MMR00${profile?.unqId}`}
                         </p>
                       </div>
                       <div className="details-row">
@@ -324,61 +327,61 @@ const ProfilePage = () => {
                   </div>
                 ))}
               </div>
-            ) : (
-              <div className="profile-container">
-                {allprf.map((profile) => (
-                 <div
-                 id={`profile-${profile._id}`} // unique for each profile
-                 className="profile-card col-md-3 col-sm-4 mb-4"
-                 key={profile._id}
-               >
-                    <div
-                      className="profile-image"
-                      // style={{
-                      //   backgroundImage: `url(${profilebg})`,
-                      // }}
-                    >
-                     <img
-  src={profile.image}
-  alt={profile.fullName}
-  onClick={() => {
-    sessionStorage.setItem("scrollToProfile", profile._id); // save clicked profile ID
-    navigate(`/InnerProfile/${profile._id}`);
-  }}
-  className="profile-pic"
-/>
+            ) : ( */}
+            <div className="profile-container">
+              {allprf.map((profile) => (
+                <div
+                  id={`profile-${profile._id}`} // unique for each profile
+                  className="profile-card col-md-3 col-sm-4 mb-4"
+                  key={profile._id}
+                >
+                  <div
+                    className="profile-image"
+                  // style={{
+                  //   backgroundImage: `url(${profilebg})`,
+                  // }}
+                  >
+                    <img
+                      src={profile.image}
+                      alt={profile.fullName}
+                      onClick={() => {
+                        sessionStorage.setItem("scrollToProfile", profile._id); // save clicked profile ID
+                        navigate(`/InnerProfile/${profile._id}`);
+                      }}
+                      className="profile-pic"
+                    />
 
+                  </div>
+                  <div className="profile-details">
+                    <div className="details-row">
+                      <p>
+                        <strong>User ID: </strong>
+                        {`MMR00${profile.unqId}`}
+                      </p>
                     </div>
-                    <div className="profile-details">
-                      <div className="details-row">
-                        <p>
-                          <strong>User ID: </strong>
-                          {`MMR00${profile.unqId}`}
-                        </p>
-                      </div>
-                      <div className="details-row">
-                        <p>
-                          <strong>Name: </strong> {profile.fullName}
-                        </p>
-                      </div>
-                      <div className="details-row">
-                        <p>
-                          <strong>Place: </strong> {profile.state}
-                        </p>
-                        <p>
-                          <strong>Age: </strong> {profile.age}
-                        </p>
-                      </div>
-                      <div className="details-row">
-                        <p>
-                          <strong>Work: </strong> {profile.working}
-                        </p>
-                      </div>
+                    <div className="details-row">
+                      <p>
+                        <strong>Name: </strong> {profile.fullName}
+                      </p>
+                    </div>
+                    <div className="details-row">
+                      <p>
+                        <strong>Place: </strong> {profile.state}
+                      </p>
+                      <p>
+                        <strong>Age: </strong> {profile.age}
+                      </p>
+                    </div>
+                    <div className="details-row">
+                      <p>
+                        <strong>Work: </strong> {profile.working}
+                      </p>
                     </div>
                   </div>
-                ))}
-              </div>
-            )}
+                </div>
+              ))}
+            </div>
+            {/* )} */}
           </div>
 
           <Modal

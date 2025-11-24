@@ -8,8 +8,8 @@ const UserSchema = new mongoose.Schema({
   fullName: {
     type: String,
   },
-  unqId:{
-    type:String,unique:true,
+  unqId: {
+    type: String, unique: true,
   },
   age: {
     type: Number,
@@ -50,11 +50,11 @@ const UserSchema = new mongoose.Schema({
   Sistersiblings: {
     type: String,
   },
-  marriedSister :{
-    type:String,
+  marriedSister: {
+    type: String,
   },
-  marriedBrother:{
-    type:String,
+  marriedBrother: {
+    type: String,
   },
   pehchan: {
     type: String,
@@ -83,8 +83,8 @@ const UserSchema = new mongoose.Schema({
     type: String,
     unique: true,
   },
-  emailVerified:{
-    type:Boolean,
+  emailVerified: {
+    type: Boolean,
   },
   image: {
     type: String,
@@ -105,7 +105,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
   },
   weddingBudget: {
-    type: Number,
+    type: String,
   },
   weddingStyle: {
     type: String,
@@ -148,18 +148,18 @@ UserSchema.pre('save', async function (next) {
   }
 });
 
-UserSchema.pre('save',async function (next) {
+UserSchema.pre('save', async function (next) {
   if (this.city) {
-      this.city = this.city.toUpperCase();
+    this.city = this.city.toUpperCase();
   }
   next();
 });
 
-UserSchema.pre('save',async function (next){
+UserSchema.pre('save', async function (next) {
   if (!this.isNew) return next();
   const counter = await Counter.findOneAndUpdate(
-    {email:"email"},
-    { $inc: { seq: 1 } }, 
+    { email: "email" },
+    { $inc: { seq: 1 } },
     { new: true, upsert: true }
   );
   this.unqId = counter.seq;
@@ -175,8 +175,8 @@ UserSchema.methods.comparePassword = async function (candidatePassword) {
 };
 
 UserSchema.methods.createToken = function () {
-  const token = jwt.sign({ userId: this._id, email: this.email, role: this.role, name: this.fullName ,gender:this.gender}, process.env.SECRCET, { expiresIn: process.env.Expires });
+  const token = jwt.sign({ userId: this._id, email: this.email, role: this.role, name: this.fullName, gender: this.gender }, process.env.SECRCET, { expiresIn: process.env.Expires });
   return token;
-};    
+};
 
 module.exports = mongoose.model('User', UserSchema);

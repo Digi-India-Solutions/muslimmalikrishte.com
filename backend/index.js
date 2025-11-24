@@ -3,6 +3,7 @@ const app = express();
 require('dotenv').config();
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const morgan = require("morgan");
 
 const authenticationRouter = require('./Routers/authenticationRouter.js')
 const myprofileRouter = require('./Routers/myprofileRouter.js');
@@ -20,6 +21,7 @@ const connectDatabase = require('./db/dataBase.js');
 
 app.use(express.json());
 app.use(express.static('./public'));
+app.use(morgan("dev"));
 app.use(cookieParser());
 connectDatabase()
 
