@@ -3,7 +3,7 @@ const userModel = require('../Model/UserModel.js');
 const oppUsers = async (req, res) => {
   try {
     // Find users whose gender is not equal to req.user.gender
-    const opp = await userModel.find({ gender: { $ne: req.user.gender } });
+    const opp = await userModel.find({ gender: { $ne: req.user.gender } }).sort({ createdAt: -1 });
 
     // If no users are found, send a 400 response with a message
     if (!opp || opp.length === 0) {
@@ -16,6 +16,7 @@ const oppUsers = async (req, res) => {
     // Handle any errors and send a 400 response with the error message
     return res.status(400).json({ error: error.message });
   }
+
 };
 
 // const filteredData = async (req, res) => {
@@ -64,7 +65,7 @@ const filteredData = async (req, res) => {
 
     if (budget) query.weddingBudget = { $gte: Number(budget) };
 
-    const users = await userModel.find(query);
+    const users = await userModel.find(query).sort({ createdAt: -1 });
 
     return res.status(200).json({ success: true, total: users.length, data: users, });
 

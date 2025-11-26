@@ -346,7 +346,7 @@ const ProfilePage = () => {
                       alt={profile.fullName}
                       onClick={() => {
                         sessionStorage.setItem("scrollToProfile", profile._id); // save clicked profile ID
-                        navigate(`/InnerProfile/${profile._id}`);
+                        navigate(localStorage.getItem("user") ? `/InnerProfile/${profile._id}` : `/login`);
                       }}
                       className="profile-pic"
                     />

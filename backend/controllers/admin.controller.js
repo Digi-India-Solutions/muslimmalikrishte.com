@@ -2,36 +2,37 @@ const userModel = require('../Model/UserModel.js');
 const cloudinary = require('cloudinary').v2
 const fs = require('fs');
 
-const allUsers = async(req,res)=>{
+const allUsers = async (req, res) => {
     try {
-        const allUser = await userModel.find();
-        if(!allUser) return res.status(400).json({error:error});
-        return res.status(200).json(allUser);
+        const allUser = await userModel.find().sort({ createdAt: -1 });
+        if (!allUser) return res.status(400).json({ error: error });
+        // allUser = allUser.reverse()
+        return res.status(200).json(allUser.reverse());
     } catch (error) {
-        return res.status(400).json({error:error});
+        return res.status(400).json({ error: error });
     }
 }
 
-const addUser = async(req,res)=>{
+const addUser = async (req, res) => {
     try {
-        const result = await cloudinary.uploader.upload(req.files.image.tempFilePath,{
-            use_filename:true,folder:'file-upload',
+        const result = await cloudinary.uploader.upload(req.files.image.tempFilePath, {
+            use_filename: true, folder: 'file-upload',
         })
         fs.unlinkSync(req.files.image.tempFilePath);
         const image = result.secure_url;
-        const {name,email,password,age,gender,fatherName,motherName,dateOfBirth,grandfatherName,occupation,familyOccupationHead,height,Belong,NumOfSibling,siblingMarriedStatus,education,working,annualIncome,phone,house,city,state,address,pin,partnerGender,weddingBudget,weddingStyle,role}=req.body;
-        if(!name||!email||!password||!age||!gender||!fatherName||!motherName||!dateOfBirth||!grandfatherName||!occupation||!familyOccupationHead||!height||!Belong||!NumOfSibling||!siblingMarriedStatus||!education||!working||!annualIncome||!phone||!house||!city||!state||!address||!pin||!partnerGender||!weddingBudget||!weddingStyle||!role ||!image){
-            res.json({msg:'enter all fields'});
+        const { name, email, password, age, gender, fatherName, motherName, dateOfBirth, grandfatherName, occupation, familyOccupationHead, height, Belong, NumOfSibling, siblingMarriedStatus, education, working, annualIncome, phone, house, city, state, address, pin, partnerGender, weddingBudget, weddingStyle, role } = req.body;
+        if (!name || !email || !password || !age || !gender || !fatherName || !motherName || !dateOfBirth || !grandfatherName || !occupation || !familyOccupationHead || !height || !Belong || !NumOfSibling || !siblingMarriedStatus || !education || !working || !annualIncome || !phone || !house || !city || !state || !address || !pin || !partnerGender || !weddingBudget || !weddingStyle || !role || !image) {
+            res.json({ msg: 'enter all fields' });
         }
-        const user=await userModel.create({name,email,password,age,gender,fatherName,motherName,dateOfBirth,grandfatherName,occupation,familyOccupationHead,height,Belong,NumOfSibling,siblingMarriedStatus,education,working,annualIncome,phone,house,city,state,address,pin,partnerGender,weddingBudget,weddingStyle,role,image});
-        res.json({user}); 
-            
+        const user = await userModel.create({ name, email, password, age, gender, fatherName, motherName, dateOfBirth, grandfatherName, occupation, familyOccupationHead, height, Belong, NumOfSibling, siblingMarriedStatus, education, working, annualIncome, phone, house, city, state, address, pin, partnerGender, weddingBudget, weddingStyle, role, image });
+        res.json({ user });
+
     } catch (error) {
         return res.status(500).json({ msg: 'Cloudinary upload and register failed', error });
     }
 }
 
-const updateUser = async(req,res)=>{
+const updateUser = async (req, res) => {
     try {
         const usrID = req.params.id;
         const user = await userModel.findByIdAndUpdate(
@@ -62,37 +63,37 @@ const deleteUser = async (req, res) => {
 };
 
 
-const normaluser = async(req,res)=>{
+const normaluser = async (req, res) => {
     try {
-        const normaluser = await userModel.find({paymentDone:0})
-        if(!normaluser) return res.status(400).json({msg:'NO non payment users'});
-        return res.status(200).json({user:normaluser});
+        const normaluser = await userModel.find({ paymentDone: 0 })
+        if (!normaluser) return res.status(400).json({ msg: 'NO non payment users' });
+        return res.status(200).json({ user: normaluser });
     } catch (error) {
-        return res.status(400).json({error:error});
+        return res.status(400).json({ error: error });
     }
 }
-const premiumuser = async(req,res)=>{
+const premiumuser = async (req, res) => {
     try {
-        const normaluser = await userModel.find({paymentDone:1})
-        if(!normaluser) return res.status(400).json({msg:'NO non payment users'});
-        return res.status(200).json({user:normaluser});
+        const normaluser = await userModel.find({ paymentDone: 1 })
+        if (!normaluser) return res.status(400).json({ msg: 'NO non payment users' });
+        return res.status(200).json({ user: normaluser });
     } catch (error) {
-        return res.status(400).json({error:error});
+        return res.status(400).json({ error: error });
     }
 }
 
-const blockUserByAdmin = async(req,res)=>{
+const blockUserByAdmin = async (req, res) => {
     try {
         const usrid = req.params.id;
         const user = await userModel.findByIdAndUpdate(
             usrid,
             { blockByADMIN: "yes" },
             { new: true, runValidators: true }
-        ); 
+        );
         if (!user) return res.status(400).json({ msg: 'User not found with that ID' });
-        res.status(200).json({msg:"user blocked"});
+        res.status(200).json({ msg: "user blocked" });
     } catch (error) {
-        return res.status(400).json({error:error});
+        return res.status(400).json({ error: error });
     }
 }
 const singleUser = async (req, res) => {
@@ -104,9 +105,9 @@ const singleUser = async (req, res) => {
         }
         return res.status(200).json({ user: user });
     } catch (error) {
-        return res.status(400).json({ error: error.message }); 
+        return res.status(400).json({ error: error.message });
     }
 };
 
 
-module.exports = {allUsers,addUser,updateUser,deleteUser,normaluser,premiumuser,blockUserByAdmin,singleUser};
+module.exports = { allUsers, addUser, updateUser, deleteUser, normaluser, premiumuser, blockUserByAdmin, singleUser };
