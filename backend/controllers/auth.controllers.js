@@ -206,7 +206,7 @@ const RegisterUser = async (req, res) => {
       );
 
       // safely delete temp file
-      fs.unlink(req.files.image.tempFilePath, () => {});
+      fs.unlink(req.files.image.tempFilePath, () => { });
       image = result.secure_url;
     } else {
       const gender = req.body.gender?.toLowerCase();
@@ -318,7 +318,9 @@ const generateOTP = () => {
 const forgotPasswordUser = async (req, res) => {
   try {
     const userEmail = req.body.email;
-    const userData = await UserModel.findOne({ email: userEmail });
+    const userData = await UserModel.findOne({
+      email: { $regex: new RegExp(`^${userEmail}$`, "i") }
+    });
     if (!userData) return res.status(400).json({ msg: "email not registered" });
     const otp = generateOTP();
     const data = await UserModel.updateOne(

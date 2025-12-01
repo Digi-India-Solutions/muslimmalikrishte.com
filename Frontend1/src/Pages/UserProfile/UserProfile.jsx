@@ -267,7 +267,7 @@ const UserProfile = () => {
                         </button>
 
                         <button
-                          className="btn userprofile-creataccount"
+                          className="btn userprofile-creataccount text-white mt-2"
                           onClick={() => {
                             setShowModal(true);
                           }}
@@ -344,8 +344,9 @@ const UserProfile = () => {
                   onRequestClose={() => setShowAvatarEditor(false)}
                   className="modal-container"
                   overlayClassName="modal-overlay"
+                  style={{ background: 'white' }}
                 >
-                  <h2>Edit Profile Image</h2>
+                  <h2 className="text-white mt-2" >Edit Profile Image</h2>
                   <AvatarEditor
                     ref={editorRef}
                     image={imageFile}
@@ -402,48 +403,48 @@ const UserProfile = () => {
                           <hr />
                         </div>
                       ))} */}
-                      {Object.entries(formData)
-  .filter(
-    ([key]) =>
-      !["name", "fatherName", "motherName", "dob", "phone", "email"].includes(
-        key
-      )
-  )
-  .map(([key, value]) => {
-    const labelMap = {
-      fullName: "Full Name",
-      fatherName: "Father Name",
-      motherName: "Mother Name",
-      dob: "Date of Birth",
-      phone: "Phone",
-      email: "Email",
-      gender: "Gender",
-      age: "Age",
-      height: "Height",
-      MarriedStatus: "Marital Status",
-      belong: "Belong",
-      sibling: "Siblings",
-      education: "Education",
-      working: "Occupation",
-      income: "Annual Income",
-      address: "Address",
-      city: "City",
-      pin: "Pin Code",
-      budget: "Wedding Budget",
-      style: "Wedding Style",
-      familyHead: "Family Head",
-    };
+                    {Object.entries(formData)
+                      .filter(
+                        ([key]) =>
+                          !["name", "fatherName", "motherName", "dob", "phone", "email"].includes(
+                            key
+                          )
+                      )
+                      .map(([key, value]) => {
+                        const labelMap = {
+                          fullName: "Full Name",
+                          fatherName: "Father Name",
+                          motherName: "Mother Name",
+                          dob: "Date of Birth",
+                          phone: "Phone",
+                          email: "Email",
+                          gender: "Gender",
+                          age: "Age",
+                          height: "Height",
+                          MarriedStatus: "Status",
+                          belong: "Belong",
+                          sibling: "Siblings",
+                          education: "Education",
+                          working: "Occupation",
+                          income: "Annual Income",
+                          address: "Address",
+                          city: "City",
+                          pin: "Pin Code",
+                          budget: "Wedding Budget",
+                          style: "Wedding Style",
+                          familyHead: "Family Head",
+                        };
 
-    return (
-      <div className="row" key={key}>
-        <div className="col-sm-3">
-          <h6 className="mb-0">{labelMap[key] || key}</h6>
-        </div>
-        <div className="col-sm-9 text-secondary">{value}</div>
-        <hr />
-      </div>
-    );
-  })}
+                        return (
+                          <div className="row" key={key}>
+                            <div className="col-sm-3">
+                              <h6 className="mb-0">{labelMap[key] || key}</h6>
+                            </div>
+                            <div className="col-sm-9 text-secondary">{value}</div>
+                            <hr />
+                          </div>
+                        );
+                      })}
 
                   </div>
                 </div>
@@ -459,28 +460,54 @@ const UserProfile = () => {
           className="modal-container "
           overlayClassName="modal-overlay"
         >
-          <h2>Edit Profile</h2>
+          <h2 className="text-white mt-2">Edit Profile</h2>
           <form onSubmit={handleFormSubmit}>
             <div className="row modal-row">
-              {Object.entries(formData).map(([key, value]) => (
-                <div className="col-md-4 mb-3" key={key}>
-                  <div className="form-group">
-                    <label htmlFor={key}>
-                      {key.replace(/_/g, " ").toUpperCase()}
-                    </label>
-                    <input
-                      type="text"
-                      id={key}
-                      name={key}
-                      value={value}
-                      onChange={handleInputChange}
-                      className="form-control"
-                    />
-                  </div>
-                </div>
-              ))}
+              {Object.entries(formData).map(([key, value]) => {
+                const labelMap = {
+                  fullName: "Full Name",
+                  fatherName: "Father Name",
+                  motherName: "Mother Name",
+                  dob: "Date of Birth",
+                  phone: "Phone",
+                  email: "Email",
+                  gender: "Gender",
+                  age: "Age",
+                  height: "Height",
+                  MarriedStatus: "Status",
+                  belong: "Belong",
+                  sibling: "Siblings",
+                  education: "Education",
+                  working: "Occupation",
+                  income: "Annual Income",
+                  address: "Address",
+                  city: "City",
+                  pin: "Pin Code",
+                  budget: "Wedding Budget",
+                  style: "Wedding Style",
+                  familyHead: "Family Head",
+                };
 
-              <div className="form-group">
+                return (
+                  <div className="col-md-4 mb-3" key={key}>
+                    <div className="form-group">
+                      <label htmlFor={key}>
+                        {labelMap[key] || key.replace(/_/g, " ").toUpperCase()}
+                      </label>
+                      <input
+                        type="text"
+                        id={key}
+                        name={key}
+                        value={value}
+                        onChange={handleInputChange}
+                        className="form-control"
+                      />
+                    </div>
+                  </div>
+                )
+              })}
+
+              {/* <div className="form-group" style={{ marginTop: "20px",marginLeft:"20px",background:"white",color:'black',width:"65%",borderRadius:"10px" }}>
                 <label htmlFor="updatepic">Update Picture</label>
                 <input
                   type="file"
@@ -488,6 +515,41 @@ const UserProfile = () => {
                   name="image"
                   onChange={handleImageChange}
                   className="btn btn-link text-light text-decoration-none"
+                />
+              </div> */}
+              <div
+                className="form-group"
+                style={{
+                  marginTop: "20px",
+                  marginLeft: "20px",
+                  marginBottom: "20px",
+                  background: "white",
+                  color: "black",
+                  width: "50%",            // perfect for laptop view
+                  borderRadius: "10px",
+                  padding: "12px 16px",
+                  border: "1px solid #ddd",
+                }}
+              >
+                <label htmlFor="updatepic" style={{ fontWeight: "600" }}>
+                  Update Picture
+                </label>
+
+                <input
+                  type="file"
+                  accept="image/*"
+                  name="image"
+                  onChange={handleImageChange}
+                  style={{
+                    display: "block",
+                    marginTop: "8px",
+                    width: "100%",
+                    padding: "8px",
+                    background: "#f8f9fa",
+                    borderRadius: "6px",
+                    border: "1px solid #ccc",
+                    cursor: "pointer",
+                  }}
                 />
               </div>
             </div>

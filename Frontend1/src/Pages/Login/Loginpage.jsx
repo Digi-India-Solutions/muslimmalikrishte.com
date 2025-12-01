@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { IoEyeOffOutline } from "react-icons/io5";
+import { LuEye } from "react-icons/lu";
 ReactModal.setAppElement("#root");
 
 const axiosInstance = axios.create({
@@ -38,7 +40,7 @@ const Loginpage = () => {
     e.preventDefault();
     try {
       const res = await axiosInstance.post("/api/v1/auth/forgotPassword", {
-        email: femail,
+        email: femail.toLocaleLowerCase(),
       });
       Swal.fire({
         icon: "success",
@@ -67,7 +69,7 @@ const Loginpage = () => {
     }
     try {
       await axiosInstance.post("/api/v1/auth/verifyToken", {
-        email: femail,
+        email: femail.toLocaleLowerCase(),
         myToken: otpValue,
       });
       Swal.fire({
@@ -88,7 +90,7 @@ const Loginpage = () => {
     e.preventDefault();
     try {
       const res = await axiosInstance.post("/api/v1/auth/updatePassword", {
-        email: femail,
+        email: femail.toLocaleLowerCase(),
         password: newPassword,
       });
       Swal.fire({
@@ -127,7 +129,7 @@ const Loginpage = () => {
     try {
       // console.log(axiosInstance);
       const response = await axiosInstance.post("/api/v1/auth/login", {
-        email,
+        email: email.toLocaleLowerCase(),
         password,
       });
       // console.log("Login response: ", response.data);
@@ -185,9 +187,15 @@ const Loginpage = () => {
               <button
                 type="button"
                 className="eye-icon"
+                color="white"
                 onClick={togglePasswordVisibility}
               >
-                {passwordVisible ? "🔒" : "👁️"}
+
+                {passwordVisible ? (
+                  <IoEyeOffOutline style={{ color: 'white' }} />
+                ) : (
+                  <LuEye style={{ color: 'white' }} />
+                )}
               </button>
             </div>
             {error && <p className="error-message">{error}</p>}{" "}
@@ -201,6 +209,7 @@ const Loginpage = () => {
                 type="button"
                 className="link-button forgotBtn"
                 onClick={() => setShowForgotPassword(true)}
+                style={{ color: "white" }}
               >
                 Forgot password?
               </button>
@@ -260,26 +269,26 @@ const Loginpage = () => {
         <div className="form-container">
           <h2>Enter OTP</h2>
           <form onSubmit={handleOTPSubmit}>
-          <div className="input-field otp-field">
-  {[...Array(6)].map((_, index) => (
-    <input
-      key={index}
-      id={`otp-input-${index}`}
-      type="text"
-      inputMode="numeric"
-      pattern="[0-9]*"
-      maxLength="1"
-      value={myToken[index] || ""}
-      onChange={(e) => handleOtpChange(e.target.value.replace(/\D/, ''), index)}
-      onKeyDown={(e) => {
-        if (e.key === "Backspace" && !myToken[index]) {
-          handleOtpChange("", index - 1);
-        }
-      }}
-      className="otp-input"
-    />
-  ))}
-</div>
+            <div className="input-field otp-field">
+              {[...Array(6)].map((_, index) => (
+                <input
+                  key={index}
+                  id={`otp-input-${index}`}
+                  type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
+                  maxLength="1"
+                  value={myToken[index] || ""}
+                  onChange={(e) => handleOtpChange(e.target.value.replace(/\D/, ''), index)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Backspace" && !myToken[index]) {
+                      handleOtpChange("", index - 1);
+                    }
+                  }}
+                  className="otp-input"
+                />
+              ))}
+            </div>
 
             {error && <p className="error-message">{error}</p>}
             <button type="submit" className="submit-button">

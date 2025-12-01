@@ -47,18 +47,39 @@ const ProfilePage = () => {
     }
   };
 
-  const cityFilters = async () => {
-    try {
-      const response = await axiosInstance.get(
-        `/api/v1/profiles/city/for/option`
-      );
-      // console.log(response.data.city);
-      SetCities(response.data.city);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const cityFilters = async () => {
+  //   try {
+  //     const response = await axiosInstance.get(
+  //       `/api/v1/profiles/city/for/option`
+  //     );
+  //     console.log("XXXXXXX::=>",response.data.city);
+  //     SetCities(response.data.city);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
+  const cityFilters = async () => {
+  try {
+    const response = await axiosInstance.get(`/api/v1/profiles/city/for/option`);
+
+    const uniqueCities = [
+      ...new Set(
+        response.data.city.map(item =>
+          item.city.trim().toLowerCase()
+        )
+      )
+    ].map(c => ({
+      city: c.charAt(0).toUpperCase() + c.slice(1) // Capitalize
+    }));
+
+    console.log("Clean Cities:", uniqueCities);
+    SetCities(uniqueCities);
+
+  } catch (error) {
+    console.log(error);
+  }
+};
   useEffect(() => {
     const savedScroll = sessionStorage.getItem("profileScroll");
 

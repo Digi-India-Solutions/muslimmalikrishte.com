@@ -370,6 +370,6 @@ input[type="text"] {
 
   .forgotBtn{
     font-size: 13px !important;
-    color:green !important;
+    color:rgb(255, 255, 255) !important;
   }
 }
