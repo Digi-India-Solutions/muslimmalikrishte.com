@@ -34,6 +34,12 @@
   margin: 2rem auto;
 }
 
+.OtpModal{
+  background: linear-gradient(90deg, #000000, #5f1717) !important;
+  color:white;
+
+}
+
 .sign-form-heading {
   text-align: center;
   color: #edc9d1;
