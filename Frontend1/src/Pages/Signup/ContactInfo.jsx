@@ -383,9 +383,9 @@ const ContactInfo = ({ formData, handleChange, goToTab }) => {
           isOpen={isModalOpen}
           onRequestClose={closeModal}
           className="otp-modal-content"
-          overlayClassName="modal-overlay"
+          overlayClassName="modal-overlay bg-transparent "
         >
-          <div className="modal-header d-flex justify-content-between">
+          <div className="modal-header d-flex justify-content-between ">
             <h5 className="modal-title">OTP has been sent to your Email</h5>
             <button className="btn-close" onClick={closeModal}></button>
           </div>
