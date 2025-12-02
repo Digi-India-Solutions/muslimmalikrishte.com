@@ -340,11 +340,11 @@ const ContactInfo = ({ formData, handleChange, goToTab }) => {
               required
             />
             I have read and agree to the{" "}
-            <Link to="/termCondition" rel="noopener noreferrer">
+            <Link to="/termCondition" className="text-decoration-none text-warning" rel="noopener noreferrer">
               Terms and Conditions
             </Link>{" "}
             and{" "}
-            <Link to="/privacyPolicy" rel="noopener noreferrer">
+            <Link to="/privacyPolicy" className="text-decoration-none text-success" rel="noopener noreferrer">
               Privacy Policy
             </Link>
           </div>
