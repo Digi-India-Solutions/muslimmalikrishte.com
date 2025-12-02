@@ -387,7 +387,7 @@ const ContactInfo = ({ formData, handleChange, goToTab }) => {
         >
           <div className="modal-header d-flex justify-content-between ">
             <h5 className="modal-title">OTP has been sent to your Email</h5>
-            <button className="btn-close text-light" onClick={closeModal}></button>
+            <button className="btn-close bg-light p-2 " onClick={closeModal}></button>
           </div>
 
           <div className="modal-body text-center">
