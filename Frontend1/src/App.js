@@ -16,11 +16,13 @@ import PrivacyPolicy from "./Pages/TermCondition/PrivacyPolicy";
 import PageNotFound from "./Pages/PageNotFound";
 import ConnectionReq from "./Pages/UserProfile/ConnectionReq";
 import MyConnection from "./Pages/UserProfile/MyConnection";
+import ScrollToTop from './Components/ScrollToTop/ScrollToTop'
 
 function App() {
   return (
     <Router>
       <Header />
+      <ScrollToTop/>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<LoginPage />} />

@@ -195,7 +195,7 @@ const InnerProfile = () => {
                 <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                   <h6 className="mb-0">
                     <i className="bi bi-arrow-bar-right"></i>
-                    Material status{" "}
+                    Marital status{" "}
                   </h6>
                   <span className="text-secondary">{dis.maritalstatus}</span>
                 </li>
