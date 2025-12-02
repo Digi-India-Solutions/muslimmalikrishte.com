@@ -431,7 +431,7 @@ const Basicinfo = ({ formData, handleChange, goToTab }) => {
           </div>
           <button
             type="button"
-            className="next-btn login-page-btn"
+            className="next-btn login-page-btn "
             onClick={() => goToTab(2)}
             disabled={!isFormValid}
             title={!isFormValid ? "Please fill all mandatory fields." : ""}
