@@ -47,7 +47,7 @@ const Basicinfo = ({ formData, handleChange, goToTab }) => {
           <div className="row">
             <div className="col-md-4 col-6 col-6">
               <div className="form-field">
-                <label htmlFor="fullName" className="label-main">
+                <label htmlFor="fullName " className="label-main ">
                   Full name <sup>*</sup>
                 </label>
                 <input
@@ -62,7 +62,7 @@ const Basicinfo = ({ formData, handleChange, goToTab }) => {
             </div>
             <div className="col-md-4 col-6 col-6">
               <div className="form-field">
-                <label htmlFor="age" className="label-main">
+                <label htmlFor="age" className="label-main ">
                   Age <sup>*</sup>
                 </label>
                 <input

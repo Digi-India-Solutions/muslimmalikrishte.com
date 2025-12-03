@@ -118,7 +118,7 @@ const ContactInfo = ({ formData, handleChange, goToTab }) => {
           <div className="row">
             <div className="col-md-4 col-6">
               <div className="form-field">
-                <label htmlFor="phone">
+                <label htmlFor="phone" className="label-main">
                   Phone <sup>*</sup>
                 </label>
                 <input
