@@ -25,12 +25,14 @@ const ContactInfo = ({ formData, handleChange, goToTab }) => {
       "pin",
       "country",
       "weddingStyle",
+      "weddingBudget",
       "acceptTerms",
     ];
 
     const isValid = requiredFields.every(
       (field) => formData[field]?.trim() !== ""
-    );
+    ) &&
+    formData.acceptTerms === true;
     setIsFormValid(isValid);
   }, [formData]);
 
@@ -340,11 +342,11 @@ const ContactInfo = ({ formData, handleChange, goToTab }) => {
               required
             />
             I have read and agree to the{" "}
-            <Link to="/termCondition" className="text-decoration-none text-warning" rel="noopener noreferrer">
+            <Link to="/termCondition" className="text-decoration-none text-light" rel="noopener noreferrer">
               Terms and Conditions
             </Link>{" "}
             and{" "}
-            <Link to="/privacyPolicy" className="text-decoration-none text-success" rel="noopener noreferrer">
+            <Link to="/privacyPolicy" className="text-decoration-none text-light" rel="noopener noreferrer">
               Privacy Policy
             </Link>
           </div>
@@ -386,7 +388,7 @@ const ContactInfo = ({ formData, handleChange, goToTab }) => {
           overlayClassName="modal-overlay bg-transparent  "
         >
           <div className="modal-header d-flex justify-content-between ">
-            <h5 className="modal-title">OTP has been sent to your Email</h5>
+            <h5 className="modal-title ">OTP has been sent to your Email</h5>
             <button className="btn-close bg-light p-2 " onClick={closeModal}></button>
           </div>
 

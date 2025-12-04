@@ -142,7 +142,7 @@ const Review = ({ formData, goToTab }) => {
               />
             </div>
           </div>
-
+     
           <div className="col-md-4">
             <div className="form-field">
               <label className="label-main">Family head</label>

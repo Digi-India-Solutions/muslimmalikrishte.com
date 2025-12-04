@@ -72,8 +72,8 @@ const UserProfile = () => {
         address: disData.area,
         city: disData.city,
         pin: disData.pin,
-        budget: disData.weddingBudget,
-        style: disData.weddingStyle,
+        weddingBudget: disData.weddingBudget,
+        weddingStyle: disData.weddingStyle, 
         familyHead: disData.FamilyHead,
       });
     }
@@ -107,8 +107,9 @@ const UserProfile = () => {
     address: "Loading...",
     city: "Loading...",
     pin: "Loading...",
-    budget: "Loading...",
-    style: "Loading...",
+    weddingBudget: "Loading...",
+    weddingStyle: "Loading...",
+    
     familyHead: "Loading...",
   });
 
@@ -221,6 +222,23 @@ const UserProfile = () => {
       });
     }
   };
+
+  const weddingBudgetOptions = [
+    "1-2 Lakh",
+    "2-5 Lakh",
+    "5-10 Lakh",
+    "10-20 Lakh",
+    "20 Lakh+"
+  ];
+  
+  const weddingStyleOptions = [
+    "Traditional",
+    "Modern",
+    "Destination Wedding",
+    "Simple Ceremony",
+    "Luxury Wedding"
+  ];
+  
 
   return (
     <>
@@ -491,17 +509,47 @@ const UserProfile = () => {
                 return (
                   <div className="col-md-4 mb-3" key={key}>
                     <div className="form-group">
-                      <label htmlFor={key}>
+                      <label htmlFor={key} className="pb-2">
                         {labelMap[key] || key.replace(/_/g, " ").toUpperCase()}
                       </label>
-                      <input
-                        type="text"
-                        id={key}
-                        name={key}
-                        value={value}
-                        onChange={handleInputChange}
-                        className="form-control"
-                      />
+                      {key === "weddingBudget" ? (
+  <select
+    id={key}
+    name={key}
+    value={value}
+    onChange={handleInputChange}
+    className="form-control"
+  >
+    <option value="">Select Wedding Budget</option>
+    {weddingBudgetOptions.map((opt, index) => (
+      <option key={index} value={opt}>{opt}</option>
+    ))}
+  </select>
+) : key === "weddingStyle" ? (
+  <select
+    id={key}
+    name={key}
+    value={value}
+    onChange={handleInputChange}
+    className="form-control"
+  >
+    <option value="">Select Wedding Style</option>
+    {weddingStyleOptions.map((opt, index) => (
+      <option key={index} value={opt}>{opt}</option>
+    ))}
+  </select>
+) : (
+  <input
+    type="text"
+    id={key}
+    name={key}
+    value={value}
+    onChange={handleInputChange}
+    className="form-control"
+  />
+)}
+
+
                     </div>
                   </div>
                 )
