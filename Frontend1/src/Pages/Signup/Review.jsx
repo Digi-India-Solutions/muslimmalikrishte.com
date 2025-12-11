@@ -88,7 +88,7 @@ const Review = ({ formData, goToTab }) => {
   return (
     <>
       <div>
-        <h3>Review and Submit</h3>
+        <h3 className="text-center">Review and Submit </h3>
         <div className="row">
           <div className="col-md-4">
             <div className="form-field">
@@ -131,8 +131,18 @@ const Review = ({ formData, goToTab }) => {
               <label className="label-main">Password</label>
               <p className="Signup-Review">{formData.password}</p>
             </div>
+            <div className="form-field pb-2">
+              <label htmlFor="ProfilePhoto" className="label-main">
+                Upload Profile Image
+              </label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+              />
+            </div>
           </div>
-
+     
           <div className="col-md-4">
             <div className="form-field">
               <label className="label-main">Family head</label>
@@ -169,6 +179,10 @@ const Review = ({ formData, goToTab }) => {
             <div className="form-field">
               <label className="label-main">House</label>
               <p className="Signup-Review">{formData.house}</p>
+            </div>
+            <div className="form-field">
+              <label className="label-main">Married Sister</label>
+              <p className="Signup-Review">{formData.marriedSister}</p>
             </div>
           </div>
 
@@ -214,15 +228,11 @@ const Review = ({ formData, goToTab }) => {
               <p className="Signup-Review">{formData.weddingStyle}</p>
             </div>
             <div className="form-field">
-              <label htmlFor="ProfilePhoto" className="label-main">
-                Upload Profile Image
-              </label>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleImageChange}
-              />
+              <label className="label-main">Married Brother</label>
+              <p className="Signup-Review">{formData.marriedBrother}</p>
             </div>
+            
+           
           </div>
         </div>
 

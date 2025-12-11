@@ -47,7 +47,7 @@ const Basicinfo = ({ formData, handleChange, goToTab }) => {
           <div className="row">
             <div className="col-md-4 col-6 col-6">
               <div className="form-field">
-                <label htmlFor="fullName" className="label-main">
+                <label htmlFor="fullName " className="label-main ">
                   Full name <sup>*</sup>
                 </label>
                 <input
@@ -62,7 +62,7 @@ const Basicinfo = ({ formData, handleChange, goToTab }) => {
             </div>
             <div className="col-md-4 col-6 col-6">
               <div className="form-field">
-                <label htmlFor="age" className="label-main">
+                <label htmlFor="age" className="label-main ">
                   Age <sup>*</sup>
                 </label>
                 <input
@@ -194,7 +194,7 @@ const Basicinfo = ({ formData, handleChange, goToTab }) => {
                   <option value="" disabled>
                     Marital Status
                   </option>
-                  <option value="UnMarried">Never Married</option>
+                  <option value="Unmarried">Never Married</option>
                   <option value="Divorced">Divorced</option>
                   <option value="Windowed">Widow</option>
                 </select>
@@ -431,7 +431,7 @@ const Basicinfo = ({ formData, handleChange, goToTab }) => {
           </div>
           <button
             type="button"
-            className="next-btn login-page-btn"
+            className="next-btn login-page-btn "
             onClick={() => goToTab(2)}
             disabled={!isFormValid}
             title={!isFormValid ? "Please fill all mandatory fields." : ""}

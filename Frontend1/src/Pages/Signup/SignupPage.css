@@ -34,6 +34,12 @@
   margin: 2rem auto;
 }
 
+.OtpModal{
+  background: linear-gradient(90deg, #000000, #5f1717) !important;
+  color:white;
+
+}
+
 .sign-form-heading {
   text-align: center;
   color: #edc9d1;
@@ -85,6 +91,7 @@
 }
 
 .label-main {
+  padding-bottom: 8px;
   display: block;
   color: #fff;
 }
@@ -145,9 +152,9 @@ textarea {
 }
 
 .login-page-btn {
-  padding: 12px 20px;
+  padding: 8px 20px;
   background-color: var(--font-color);
-  color: white;
+  color: rgb(0, 0, 0);
   border: none;
   font-weight: 600;
   border-radius: 1rem;
@@ -211,6 +218,10 @@ sup {
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
+.modal-title {
+  font-size: 18px;
+  color:#eaeaea;
+}
 .otp-input {
   width: 40px;
   height: 50px;
@@ -286,7 +297,7 @@ sup {
   }
 
   .modal-title {
-    font-size: 16px;
+    font-size: 14px;
   }
 }
 

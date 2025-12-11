@@ -25,12 +25,14 @@ const ContactInfo = ({ formData, handleChange, goToTab }) => {
       "pin",
       "country",
       "weddingStyle",
+      "weddingBudget",
       "acceptTerms",
     ];
 
     const isValid = requiredFields.every(
       (field) => formData[field]?.trim() !== ""
-    );
+    ) &&
+      formData.acceptTerms === true;
     setIsFormValid(isValid);
   }, [formData]);
 
@@ -77,6 +79,7 @@ const ContactInfo = ({ formData, handleChange, goToTab }) => {
         });
         SetShw(1);
         setIsModalOpen(false);
+        setIsFormValid(true);
       } else {
         Swal.fire({
           title: "OTP Verification Failed!",
@@ -102,7 +105,7 @@ const ContactInfo = ({ formData, handleChange, goToTab }) => {
       console.log("Sending email to:", email);
 
       const response = await axios.post('https://api.muslimmalikrishte.com/api/v1/auth/verifyEmail', { email });
-
+      setIsModalOpen(true);
       // alert("Email verification response:", response.data);
     } catch (error) {
       console.error("Error sending email:", error.response?.data || error.message);
@@ -118,7 +121,7 @@ const ContactInfo = ({ formData, handleChange, goToTab }) => {
           <div className="row">
             <div className="col-md-4 col-6">
               <div className="form-field">
-                <label htmlFor="phone">
+                <label htmlFor="phone" className="label-main">
                   Phone <sup>*</sup>
                 </label>
                 <input
@@ -340,11 +343,11 @@ const ContactInfo = ({ formData, handleChange, goToTab }) => {
               required
             />
             I have read and agree to the{" "}
-            <Link to="/termCondition" rel="noopener noreferrer">
+            <Link to="/termCondition" className="text-decoration-none text-light" rel="noopener noreferrer">
               Terms and Conditions
             </Link>{" "}
             and{" "}
-            <Link to="/privacyPolicy" rel="noopener noreferrer">
+            <Link to="/privacyPolicy" className="text-decoration-none text-light" rel="noopener noreferrer">
               Privacy Policy
             </Link>
           </div>
@@ -382,12 +385,12 @@ const ContactInfo = ({ formData, handleChange, goToTab }) => {
         <Modal
           isOpen={isModalOpen}
           onRequestClose={closeModal}
-          className="otp-modal-content"
-          overlayClassName="modal-overlay"
+          className="otp-modal-content OtpModal"
+          overlayClassName="modal-overlay bg-transparent  "
         >
-          <div className="modal-header d-flex justify-content-between">
-            <h5 className="modal-title">OTP has been sent to your Email</h5>
-            <button className="btn-close" onClick={closeModal}></button>
+          <div className="modal-header d-flex justify-content-between ">
+            <h5 className="modal-title ">OTP has been sent to your Email</h5>
+            <button className="btn-close bg-light p-2 " onClick={closeModal}></button>
           </div>
 
           <div className="modal-body text-center">
