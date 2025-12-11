@@ -341,7 +341,7 @@ const verifyEmailUser = async (req, res) => {
     }
 
     const otp = generateOTP();
-
+    console.log("DDDD:==>", otp, email);
     // Upsert: If email exists, update OTP; otherwise, create a new entry
     await EmailVerifyModelSigUP.findOneAndUpdate(
       { email },
