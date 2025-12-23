@@ -8,10 +8,7 @@ const Login = () => {
   const email = "muslimmalik@gmail.com"
   const password = "muslimmalik"
   const navigate = useNavigate()
-  const [data, setData] = useState({
-    email: "",
-    password: ""
-  })
+  const [data, setData] = useState({    email: "",    password: ""  })
 
   const getInputData = (e) => {
     const { name, value } = e.target

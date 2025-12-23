@@ -73,7 +73,7 @@ const UserProfile = () => {
         city: disData.city,
         pin: disData.pin,
         weddingBudget: disData.weddingBudget,
-        weddingStyle: disData.weddingStyle, 
+        weddingStyle: disData.weddingStyle,
         familyHead: disData.FamilyHead,
       });
     }
@@ -109,7 +109,7 @@ const UserProfile = () => {
     pin: "Loading...",
     weddingBudget: "Loading...",
     weddingStyle: "Loading...",
-    
+
     familyHead: "Loading...",
   });
 
@@ -230,7 +230,7 @@ const UserProfile = () => {
     "10-20 Lakh",
     "20 Lakh+"
   ];
-  
+
   const weddingStyleOptions = [
     "Traditional",
     "Modern",
@@ -238,7 +238,7 @@ const UserProfile = () => {
     "Simple Ceremony",
     "Luxury Wedding"
   ];
-  
+
 
   return (
     <>
@@ -309,6 +309,7 @@ const UserProfile = () => {
                     </div>
                   </div>
                 </div>
+
                 {/* Other Profile Details */}
                 <div className="card mt-3">
                   <ul className="list-group list-group-flush">
@@ -424,7 +425,7 @@ const UserProfile = () => {
                     {Object.entries(formData)
                       .filter(
                         ([key]) =>
-                          !["name", "fatherName", "motherName", "dob", "phone", "email"].includes(
+                          !["name", "fatherName", "motherName", "dob", "phone", "email" ].includes(
                             key
                           )
                       )
@@ -448,8 +449,8 @@ const UserProfile = () => {
                           address: "Address",
                           city: "City",
                           pin: "Pin Code",
-                          budget: "Wedding Budget",
-                          style: "Wedding Style",
+                          weddingBudget: "Wedding Budget",
+                          weddingStyle: "Wedding Style",
                           familyHead: "Family Head",
                         };
 
@@ -501,8 +502,8 @@ const UserProfile = () => {
                   address: "Address",
                   city: "City",
                   pin: "Pin Code",
-                  budget: "Wedding Budget",
-                  style: "Wedding Style",
+                  weddingBudget: "Wedding Budget",
+                  weddingStyle: "Wedding Style",
                   familyHead: "Family Head",
                 };
 
@@ -513,41 +514,41 @@ const UserProfile = () => {
                         {labelMap[key] || key.replace(/_/g, " ").toUpperCase()}
                       </label>
                       {key === "weddingBudget" ? (
-  <select
-    id={key}
-    name={key}
-    value={value}
-    onChange={handleInputChange}
-    className="form-control"
-  >
-    <option value="">Select Wedding Budget</option>
-    {weddingBudgetOptions.map((opt, index) => (
-      <option key={index} value={opt}>{opt}</option>
-    ))}
-  </select>
-) : key === "weddingStyle" ? (
-  <select
-    id={key}
-    name={key}
-    value={value}
-    onChange={handleInputChange}
-    className="form-control"
-  >
-    <option value="">Select Wedding Style</option>
-    {weddingStyleOptions.map((opt, index) => (
-      <option key={index} value={opt}>{opt}</option>
-    ))}
-  </select>
-) : (
-  <input
-    type="text"
-    id={key}
-    name={key}
-    value={value}
-    onChange={handleInputChange}
-    className="form-control"
-  />
-)}
+                        <select
+                          id={key}
+                          name={key}
+                          value={value}
+                          onChange={handleInputChange}
+                          className="form-control"
+                        >
+                          <option value="">Select Wedding Budget</option>
+                          {weddingBudgetOptions.map((opt, index) => (
+                            <option key={index} value={opt}>{opt}</option>
+                          ))}
+                        </select>
+                      ) : key === "weddingStyle" ? (
+                        <select
+                          id={key}
+                          name={key}
+                          value={value}
+                          onChange={handleInputChange}
+                          className="form-control"
+                        >
+                          <option value="">Select Wedding Style</option>
+                          {weddingStyleOptions.map((opt, index) => (
+                            <option key={index} value={opt}>{opt}</option>
+                          ))}
+                        </select>
+                      ) : (
+                        <input
+                          type="text"
+                          id={key}
+                          name={key}
+                          value={value}
+                          onChange={handleInputChange}
+                          className="form-control"
+                        />
+                      )}
 
 
                     </div>
