@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom"; // Removed 'isCookie' (not needed)
 import "./Header.css";
-import websitelogo from "../../Assets/logo12.png";
+import websitelogo from "../../Assets/logo2.png";
 import whatsapp from "../../Assets/whatsapp.png";
 
 const Header = () => {
