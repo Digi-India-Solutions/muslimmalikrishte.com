@@ -425,7 +425,7 @@ const UserProfile = () => {
                     {Object.entries(formData)
                       .filter(
                         ([key]) =>
-                          !["name", "fatherName", "motherName", "dob", "phone", "email" ].includes(
+                          !["name", "fatherName", "motherName", "dob", "phone", "email"].includes(
                             key
                           )
                       )
