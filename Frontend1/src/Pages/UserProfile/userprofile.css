@@ -2,6 +2,7 @@
   padding: 15px;
   margin-top: 20px;
 }
+
 .card {
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
 }
@@ -29,11 +30,12 @@
   margin-left: -8px;
 }
 
-.gutters-sm > .col,
-.gutters-sm > [class*="col-"] {
+.gutters-sm>.col,
+.gutters-sm>[class*="col-"] {
   padding-right: 8px;
   padding-left: 8px;
 }
+
 .mb-3,
 .my-3 {
   margin-bottom: 1rem !important;
@@ -42,6 +44,7 @@
 .h-100 {
   height: 100% !important;
 }
+
 .shadow-none {
   box-shadow: none !important;
 }
@@ -99,7 +102,22 @@
   align-items: center;
   justify-content: center;
   z-index: 1000;
-   overflow-y: scroll;
+  overflow-y: scroll;
+
+}
+
+.modal-overlay-avtar {
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  overflow-y: scroll;
 
 }
 
@@ -111,13 +129,34 @@
   border-radius: 10px;
   width: 95%;
   max-width: 900px;
+  height: auto;
   margin-top: 50px;
   position: relative;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
 }
 
+.modal-container-avtar {
+  /* background: white; */
+  background: linear-gradient(90deg, #000000, #5f1717);
+  color: white;
+  padding: 30px;
+  border-radius: 10px;
+  width: 95%;
+  max-width: 900px;
+  height: auto;
+  margin-top: 50px;
+  position: relative;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+}
 
 .modal-container h2 {
+  font-size: 24px;
+  margin-bottom: 2rem;
+  text-align: center;
+  color: var(--font-color);
+}
+
+.modal-container-avtar h2 {
   font-size: 24px;
   margin-bottom: 2rem;
   text-align: center;
@@ -129,7 +168,18 @@
   font-size: 14px;
 }
 
+.modal-container-avtar .form-group label {
+  font-weight: bold;
+  font-size: 14px;
+}
+
 .modal-container .form-group .form-control {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 8px;
+}
+
+.modal-container-avtar .form-group .form-control {
   border: 1px solid #ddd;
   border-radius: 5px;
   padding: 8px;
@@ -139,12 +189,26 @@
   margin-right: 10px;
 }
 
+.modal-container-avtar .btn {
+  margin-right: 10px;
+}
+
 .modal-container .save-change {
   background: var(--font-color);
   color: white;
 }
 
+.modal-container-avtar .save-change {
+  background: var(--font-color);
+  color: white;
+}
+
 .modal-container .save-change:hover {
+  background: var(--font-color);
+  color: white;
+}
+
+.modal-container-avtar .save-change:hover {
   background: var(--font-color);
   color: white;
 }
@@ -159,8 +223,10 @@
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
   width: 450px;
-  max-height: 80vh; /* Ensures the modal doesn't exceed 80% of the viewport height */
-  overflow-y: auto; /* Enables vertical scrolling if content exceeds the height */
+  max-height: 80vh;
+  /* Ensures the modal doesn't exceed 80% of the viewport height */
+  overflow-y: auto;
+  /* Enables vertical scrolling if content exceeds the height */
   text-align: center;
   background: #fff;
   /* transform: translate(-50%, -50%); */
@@ -210,9 +276,18 @@
     font-size: 11px;
   }
 
-  .modal-container{
-    top: 950px;
+  .modal-container {
+    top: 1000px;
   }
+
+  .modal-container-avtar .form-group label {
+    font-size: 11px;
+  }
+
+  /* .modal-container-avtar {
+    top: 1000px;
+  } */
+
   .user-name {
     font-size: 1rem;
   }
@@ -224,6 +299,7 @@
     bottom: 0 !important;
     overflow-y: scroll;
   }
+  
 }
 
 @media (max-width: 768px) {
@@ -233,18 +309,36 @@
     top: auto;
   }
 
+  .modal-overlay-avtar {
+    position: absolute;
+    align-items: start;
+    top: auto;
+  }
   .modal-container {
-  /* background: white; */
-  background: linear-gradient(90deg, #000000, #5f1717);
-  color: white;
-  padding: 30px;
-  border-radius: 10px;
-  width: 90%;
-  max-width: 800px;
-  position: relative;
-  height: 100%;
-  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
-}
+    /* background: white; */
+    background: linear-gradient(90deg, #000000, #5f1717);
+    color: white;
+    padding: 30px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 800px;
+    position: relative;
+    height: 100%;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  .modal-container-avtar {
+    /* background: white; */
+    background: linear-gradient(90deg, #000000, #5f1717);
+    color: white;
+    padding: 30px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 800px;
+    position: relative;
+    height: 100%;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+  }
 }
 
 /* -------- Connection page css ------------------- */

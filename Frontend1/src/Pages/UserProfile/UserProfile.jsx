@@ -20,7 +20,7 @@ const UserProfile = () => {
     motherName: "",
     height: "",
     dob: "",
-    maritalstatus: "",
+    MarriedStatus: "",
     FamilyHead: "",
     FamilyHeadOccupation: "",
     siblings: "",
@@ -138,7 +138,7 @@ const UserProfile = () => {
       setShowAvatarEditor(false);
     }
   };
-
+  console.log("FORMDATA:==>", formData)
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
@@ -147,12 +147,30 @@ const UserProfile = () => {
       Object.entries(formData).forEach(([key, value]) => {
         formDataToSend.append(key, value);
       });
+      if (formData.MarriedStatus) {
+        formDataToSend.append("maritalstatus", formData.MarriedStatus)
+      }
+      if (formData.belong) {
+        formDataToSend.append("pehchan", formData.belong)
+      }
+      if (formData.sibling) {
+        formDataToSend.append("siblings", formData.sibling)
+      }
+      if (formData.income) {
+        formDataToSend.append("annualIncome", formData.income)
+      }
+      if (formData.familyHead) {
+        formDataToSend.append("FamilyHead", formData.familyHead)
+      }
+      if (formData.address) {
+        formDataToSend.append("area", formData.address)
+      }
 
       if (imageFile) {
         formDataToSend.append("image", imageFile);
       }
 
-      console.log("Sending formData:", formDataToSend);
+      console.log("Sending formData:=>", formDataToSend);
 
       const response = await axiosInstance.patch(
         "/api/v1/myprofile/viewProfile",
@@ -361,9 +379,9 @@ const UserProfile = () => {
                 <ReactModal
                   isOpen={showAvatarEditor}
                   onRequestClose={() => setShowAvatarEditor(false)}
-                  className="modal-container"
-                  overlayClassName="modal-overlay"
-                  style={{ background: 'white' }}
+                  className="modal-container-avtar"
+                  overlayClassName="modal-overlay-avtar"
+                  style={{ background: 'red', }}
                 >
                   <h2 className="text-white mt-2" >Edit Profile Image</h2>
                   <AvatarEditor
@@ -386,7 +404,10 @@ const UserProfile = () => {
                     </button>
                     <button
                       className="btn btn-secondary"
-                      onClick={() => setShowAvatarEditor(false)}
+                      onClick={() => {
+                        setImageFile(null);
+                        setShowAvatarEditor(false);
+                      }}
                     >
                       Cancel
                     </button>
@@ -522,9 +543,18 @@ const UserProfile = () => {
                           className="form-control"
                         >
                           <option value="">Select Wedding Budget</option>
-                          {weddingBudgetOptions.map((opt, index) => (
+                          {/* {weddingBudgetOptions.map((opt, index) => (
                             <option key={index} value={opt}>{opt}</option>
-                          ))}
+
+                          ))} */}
+                          <option value="">Select Budget</option>
+                          <option value={200000}>50K - 2 Lakh</option>
+                          <option value={500000}>2 Lakh - 5 Lakh</option>
+                          <option value={1000000}>5 Lakh - 10 Lakh</option>
+                          <option value={2000000}>10 Lakh - 20 Lakh</option>
+                          <option value={4000000}>20 Lakh - 40 Lakh</option>
+                          <option value={7000000}>40 Lakh - 70 Lakh</option>
+                          <option value={10000000}>70 Lakh - 1 Crore +</option>
                         </select>
                       ) : key === "weddingStyle" ? (
                         <select
@@ -535,9 +565,28 @@ const UserProfile = () => {
                           className="form-control"
                         >
                           <option value="">Select Wedding Style</option>
-                          {weddingStyleOptions.map((opt, index) => (
+                          {/* {weddingStyleOptions.map((opt, index) => (
                             <option key={index} value={opt}>{opt}</option>
-                          ))}
+                          ))} */}
+                          <option value="" disabled>Select Style</option>
+                          <option value="Sunnati(Max 15 People)">Sunnati (Max 15 People)</option>
+                          <option value="Traditional">Traditional</option>
+                          <option value="Expensive">Expensive</option>
+                        </select>
+                      ) : key === "MarriedStatus" ? (
+                        <select
+                          id={key}
+                          name={key}
+                          value={value}
+                          onChange={handleInputChange}
+                          className="form-control"
+                        >
+                          <option value="" disabled>
+                            Marital Status
+                          </option>
+                          <option value="Unmarried">Never Married</option>
+                          <option value="Divorced">Divorced</option>
+                          <option value="Windowed">Widow</option>
                         </select>
                       ) : (
                         <input

@@ -550,7 +550,7 @@ const ProfilePage = () => {
     gender: "",
     age: 25,
     city: "",
-    budget: 100000,
+    budget: 0,
     unqId: "",
   });
 
@@ -564,7 +564,7 @@ const ProfilePage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert("Filters applied successfully!");
+    // alert("Filters applied successfully!");
   };
 
   const handlefilterSubmit = async () => {
