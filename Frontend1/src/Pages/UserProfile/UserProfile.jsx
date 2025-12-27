@@ -7,10 +7,14 @@ import { Helmet } from "react-helmet";
 import axios from "axios";
 import { axiosInstance } from "../Login/Loginpage";
 import Swal from "sweetalert2";
+import { City, Country, State } from 'country-state-city';
 
 ReactModal.setAppElement("#root");
 
 const UserProfile = () => {
+  const [countryList, setCountryList] = useState([])
+  const [stateList, setStateList] = useState([])
+  const [cityList, setCityList] = useState([])
   const [disData, SetDisdata] = useState({
     _id: "",
     fullName: "",
@@ -34,6 +38,8 @@ const UserProfile = () => {
     email: "",
     image: "",
     area: "",
+    country: "",
+    state: "",
     city: "",
     state: "",
     pin: "",
@@ -70,15 +76,19 @@ const UserProfile = () => {
         working: disData.working,
         income: disData.annualIncome,
         address: disData.area,
+        country: disData.country,
+        state: disData.state,
         city: disData.city,
         pin: disData.pin,
         weddingBudget: disData.weddingBudget,
         weddingStyle: disData.weddingStyle,
         familyHead: disData.FamilyHead,
       });
+      console.log("CCCCCC::=>", disData?.state, disData?.country)
     }
-  }, [disData]);
 
+  }, [disData]);
+  console.log("CCCCCC::=>", cityList)
   useEffect(() => {
     window.scrollTo({
       top: 0,
@@ -105,6 +115,8 @@ const UserProfile = () => {
     working: "Loading...",
     income: "Loading...",
     address: "Loading...",
+    country: 'Loading...',
+    state: "Loading...",
     city: "Loading...",
     pin: "Loading...",
     weddingBudget: "Loading...",
@@ -119,7 +131,14 @@ const UserProfile = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    if (name === 'country') {
+      setFormData({ ...formData, [name]: value, state: '', city: '' });
+    } else if (name === 'state') {
+      setFormData({ ...formData, [name]: value, city: '' });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
+
   };
 
   const handleImageChange = (e) => {
@@ -241,22 +260,39 @@ const UserProfile = () => {
     }
   };
 
-  const weddingBudgetOptions = [
-    "1-2 Lakh",
-    "2-5 Lakh",
-    "5-10 Lakh",
-    "10-20 Lakh",
-    "20 Lakh+"
-  ];
+  useEffect(() => {
+    const countries = Country.getAllCountries();
+    setCountryList(countries);
 
-  const weddingStyleOptions = [
-    "Traditional",
-    "Modern",
-    "Destination Wedding",
-    "Simple Ceremony",
-    "Luxury Wedding"
-  ];
+    // 3️⃣ Resolve country ISO
+    let countryISO = formData.country;
+    if (countryISO && countryISO.length > 2) {
+      countryISO = countries.find(c => c.name === countryISO)?.isoCode;
+    }
 
+    // 4️⃣ Load states
+    let states = [];
+    let stateISO = formData.state;
+
+    if (countryISO) {
+      states = State.getStatesOfCountry(countryISO);
+      setStateList(states);
+
+      if (stateISO && stateISO.length > 2) {
+        stateISO = states.find(s => s.name === stateISO)?.isoCode;
+      }
+    } else {
+      setStateList([]);
+    }
+
+    // 5️⃣ Load cities
+    if (countryISO && stateISO) {
+      const cities = City.getCitiesOfState(countryISO, stateISO);
+      setCityList(cities);
+    } else {
+      setCityList([]);
+    }
+  }, [formData])
 
   return (
     <>
@@ -420,29 +456,7 @@ const UserProfile = () => {
                 <div className="card mb-3">
                   <div className="card-body">
                     {/* Profile Details */}
-                    {/* {Object.entries(formData)
-                      .filter(
-                        ([key]) =>
-                          ![
-                            "name",
-                            "fatherName",
-                            "motherName",
-                            "dob",
-                            "phone",
-                            "email",
-                          ].includes(key)
-                      )
-                      .map(([key, value]) => (
-                        <div className="row" key={key}>
-                          <div className="col-sm-3">
-                            <h6 className="mb-0">
-                              {key.replace(/_/g, " ").toLowerCase()}
-                            </h6>
-                          </div>
-                          <div className="col-sm-9 text-secondary">{value}</div>
-                          <hr />
-                        </div>
-                      ))} */}
+
                     {Object.entries(formData)
                       .filter(
                         ([key]) =>
@@ -468,6 +482,8 @@ const UserProfile = () => {
                           working: "Occupation",
                           income: "Annual Income",
                           address: "Address",
+                          country: 'Country',
+                          state: "State",
                           city: "City",
                           pin: "Pin Code",
                           weddingBudget: "Wedding Budget",
@@ -521,6 +537,8 @@ const UserProfile = () => {
                   working: "Occupation",
                   income: "Annual Income",
                   address: "Address",
+                  country: 'Country',
+                  state: "State",
                   city: "City",
                   pin: "Pin Code",
                   weddingBudget: "Wedding Budget",
@@ -543,10 +561,7 @@ const UserProfile = () => {
                           className="form-control"
                         >
                           <option value="">Select Wedding Budget</option>
-                          {/* {weddingBudgetOptions.map((opt, index) => (
-                            <option key={index} value={opt}>{opt}</option>
 
-                          ))} */}
                           <option value="">Select Budget</option>
                           <option value={200000}>50K - 2 Lakh</option>
                           <option value={500000}>2 Lakh - 5 Lakh</option>
@@ -565,9 +580,7 @@ const UserProfile = () => {
                           className="form-control"
                         >
                           <option value="">Select Wedding Style</option>
-                          {/* {weddingStyleOptions.map((opt, index) => (
-                            <option key={index} value={opt}>{opt}</option>
-                          ))} */}
+
                           <option value="" disabled>Select Style</option>
                           <option value="Sunnati(Max 15 People)">Sunnati (Max 15 People)</option>
                           <option value="Traditional">Traditional</option>
@@ -588,6 +601,42 @@ const UserProfile = () => {
                           <option value="Divorced">Divorced</option>
                           <option value="Windowed">Widow</option>
                         </select>
+                      ) : key === "country" ? (
+                        <select
+                          id={key}
+                          name={key}
+                          value={value}
+                          onChange={handleInputChange}
+                          className="form-control"
+                        >
+                          <option value="">Select Country</option>
+                          {countryList?.map((item, i) => <option value={item?.name}>{item?.name}</option>)}  <option value="Unmarried">Never Married</option>
+
+                        </select>
+                      ) : key === "state" ? (
+                        <select
+                          id={key}
+                          name={key}
+                          value={value}
+                          onChange={handleInputChange}
+                          className="form-control"
+                        >
+                          <option value="">Select State</option>
+                          {stateList?.map((item, i) => <option value={item?.name}>{item?.name}</option>)}  <option value="Unmarried">Never Married</option>
+
+                        </select>
+                      ) : key === "city" ? (
+                        <select
+                          id={key}
+                          name={key}
+                          value={value}
+                          onChange={handleInputChange}
+                          className="form-control"
+                        >
+                          <option value="">Select City</option>
+                          {cityList?.map((item, i) => <option value={item?.name}>{item?.name}</option>)}  <option value="Unmarried">Never Married</option>
+
+                        </select>
                       ) : (
                         <input
                           type="text"
@@ -605,16 +654,6 @@ const UserProfile = () => {
                 )
               })}
 
-              {/* <div className="form-group" style={{ marginTop: "20px",marginLeft:"20px",background:"white",color:'black',width:"65%",borderRadius:"10px" }}>
-                <label htmlFor="updatepic">Update Picture</label>
-                <input
-                  type="file"
-                  accept="image/*"
-                  name="image"
-                  onChange={handleImageChange}
-                  className="btn btn-link text-light text-decoration-none"
-                />
-              </div> */}
               <div
                 className="form-group"
                 style={{

@@ -4,11 +4,21 @@ import { Link } from "react-router-dom";
 import Modal from "react-modal";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { Country, State, City } from 'country-state-city';
+
 Modal.setAppElement("#root"); // Required for accessibility
 
-const ContactInfo = ({ formData, handleChange, goToTab }) => {
+const ContactInfo = ({ formData, handleChange, goToTab, setFormData }) => {
   const [isFormValid, setIsFormValid] = useState(false);
   const [shw, SetShw] = useState(0);
+  const [countryList, setCountryList] = useState([]);
+  const [stateList, setStateList] = useState([]);
+  const [cityList, setCityList] = useState([]);
+
+  const [countryCode, setCountryCode] = useState("");
+  const [stateCode, setStateCode] = useState("");
+  const [cityName, setCityName] = useState("");
+
 
   useEffect(() => {
     window.scrollTo({
@@ -20,8 +30,8 @@ const ContactInfo = ({ formData, handleChange, goToTab }) => {
       "phone",
       "email",
       "area",
-      "city",
       "state",
+      "city",
       "pin",
       "country",
       "weddingStyle",
@@ -112,6 +122,46 @@ const ContactInfo = ({ formData, handleChange, goToTab }) => {
     }
   };
 
+  const handleCountryChange = (e) => {
+    const countryISO = e.target.value;
+    const countryISOs = countryList.find((c) => c.name === countryISO)?.isoCode
+    setFormData(prev => ({
+      ...prev,
+      country: countryISO,
+      state: "",
+      city: "",
+    }));
+
+    setStateList(State.getStatesOfCountry(countryISOs));
+    setCityList([]);
+  };
+
+  const handleStateChange = (e) => {
+    const stateISO = e.target.value;
+    const stateISOs = stateList.find((c) => c.name === stateISO)?.isoCode
+    const countryISOs = countryList.find((c) => c.name === formData.country)?.isoCode
+
+    setFormData(prev => ({
+      ...prev,
+      state: stateISO,
+      city: "",
+    }));
+
+    setCityList(City.getCitiesOfState(countryISOs, stateISOs));
+  };
+
+  const handleCityChange = (e) => {
+    setFormData(prev => ({
+      ...prev,
+      city: e.target.value,
+    }));
+  };
+
+
+  console.log("HHHHHHH:==>", formData)
+  useEffect(() => {
+    setCountryList(Country.getAllCountries());
+  }, []);
 
   return (
     <>
@@ -171,6 +221,72 @@ const ContactInfo = ({ formData, handleChange, goToTab }) => {
 
           <div className="row">
             <div className="col-md-4 col-6">
+              <div className="form-field" >
+                <label htmlFor="country" className="label-main">
+                  Country <sup>*</sup>
+                </label>
+                <select
+                  name="country"
+                  value={formData.country}
+                  onChange={handleCountryChange}
+                  className="form-control"
+                >
+                  <option value="">Select Country</option>
+                  {countryList.map(item => (
+                    <option key={item.name} value={item.name}>
+                      {item.name}
+                    </option>
+                  ))}
+                </select>
+
+              </div>
+            </div>
+
+            <div className="col-md-4 col-6">
+              <div className="form-field" >
+                <label htmlFor="state" className="label-main">
+                  State <sup>*</sup>
+                </label>
+                <select
+                  name="state"
+                  value={formData.state}
+                  onChange={handleStateChange}
+                  className="form-control"
+                  disabled={!formData.country}
+                >
+                  <option value="">Select State</option>
+                  {stateList.map(item => (
+                    <option key={item.name} value={item.name}>
+                      {item.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            <div className="col-md-4 col-6">
+              <div className="form-field" >
+                <label htmlFor="city" className="label-main">
+                  City <sup>*</sup>
+                </label>
+                <select
+                  name="city"
+                  value={formData.city}
+                  onChange={handleCityChange}
+                  className="form-control"
+                  disabled={!formData.state}
+                >
+                  <option value="">Select City</option>
+                  {cityList.map(item => (
+                    <option key={item.name} value={item.name}>
+                      {item.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            {/* <div className="col-md-4 col-6">
               <div className="form-field">
                 <label htmlFor="city" className="label-main">
                   City <sup>*</sup>
@@ -184,23 +300,9 @@ const ContactInfo = ({ formData, handleChange, goToTab }) => {
                   required
                 />
               </div>
-            </div>
+            </div> */}
 
-            <div className="col-md-4 col-6">
-              <div className="form-field">
-                <label htmlFor="state" className="label-main">
-                  State <sup>*</sup>
-                </label>
-                <input
-                  type="text"
-                  id="state"
-                  name="state"
-                  value={formData.state}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-            </div>
+
 
             <div className="col-md-4">
               <div className="form-field">
@@ -221,7 +323,7 @@ const ContactInfo = ({ formData, handleChange, goToTab }) => {
           </div>
 
           <div className="row">
-            <div className="col-md-4 col-6">
+            {/* <div className="col-md-4 col-6">
               <div className="form-field">
                 <label htmlFor="country" className="label-main">
                   Country <sup>*</sup>
@@ -235,7 +337,7 @@ const ContactInfo = ({ formData, handleChange, goToTab }) => {
                   required
                 />
               </div>
-            </div>
+            </div> */}
 
             {/* <div className="col-md-4 col-6">
               <div className="form-field">

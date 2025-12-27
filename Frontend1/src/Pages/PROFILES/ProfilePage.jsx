@@ -536,12 +536,12 @@ const ProfilePage = () => {
   // 👉 Load profiles + cities
   useEffect(() => {
     const userStatus = localStorage.getItem("user");
-    if (userStatus) {
+    // if (userStatus) {
       getDETAILS();
       cityFilters();
-    } else {
+    // } else {
       getALLDETAILS();
-    }
+    // }
   }, []);
 
   const [isModalOpen, setModalOpen] = useState(false);
@@ -687,14 +687,14 @@ const ProfilePage = () => {
                 <select
                   id="city"
                   name="city"
-                  value={filters.city}
+                  value={filters?.city}
                   onChange={handleInputChange}
                   className="form-control"
                 >
                   <option value="">Select City</option>
                   {cities.map((cit, index) => (
-                    <option key={index} value={cit.city}>
-                      {cit.city}
+                    <option key={index} value={cit?.city}>
+                      {cit?.city}
                     </option>
                   ))}
                 </select>
@@ -793,7 +793,7 @@ const ProfilePage = () => {
                     <div className="details-row">
                       <p>
                         <strong>User ID: </strong>
-                        {`MMR00${profile.unqId}`}
+                        {`MMR${profile.unqId}`}
                       </p>
                     </div>
                     <div className="details-row">
