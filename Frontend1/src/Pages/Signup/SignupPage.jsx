@@ -12,7 +12,7 @@ const SignupPage = () => {
     });
   }, []);
 
-  const [currentTab, setCurrentTab] = useState(2);
+  const [currentTab, setCurrentTab] = useState(1);
   const [formData, setFormData] = useState({
     fullName: "",
     age: "",
