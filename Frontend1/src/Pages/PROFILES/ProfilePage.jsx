@@ -284,7 +284,7 @@ const ProfilePage = () => {
                   onChange={handleInputChange}
                   className="form-control"
                 >
-                  <option value="">Select City</option>
+                  <option value="">Select State</option>
                   {cities.map((cit, index) => (
                     <option key={index} value={cit?.city}>
                       {cit?.city}
