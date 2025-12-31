@@ -12,8 +12,8 @@ ReactModal.setAppElement("#root");
 
 const axiosInstance = axios.create({
   baseURL: "https://api.muslimmalikrishte.com",
-  // baseURL: "https://api.muslimmalikrishte.com",
-  withCredentials: true,
+  // baseURL: "http://localhost:9000",
+  withCredentials: true,  
 });
 
 export { axiosInstance };

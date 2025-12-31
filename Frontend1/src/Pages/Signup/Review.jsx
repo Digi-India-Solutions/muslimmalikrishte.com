@@ -8,12 +8,12 @@ import { useNavigate } from "react-router-dom";
 ReactModal.setAppElement("#root");
 
 const Review = ({ formData, goToTab }) => {
-  useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  }, []);
+  // useEffect(() => {
+  //   window.scrollTo({
+  //     top: 0,
+  //     behavior: "smooth",
+  //   });
+  // }, []);
 
   const [profileImage, setProfileImage] = useState(null);
   const navigate = useNavigate();
@@ -27,6 +27,10 @@ const Review = ({ formData, goToTab }) => {
 
   // Function to handle form submission
   const handleSubmit = async () => {
+
+    if (!formData.weddingBudget) {
+      alert("Please Select wedding budget");
+    }
     const MySwal = withReactContent(Swal);
 
     // Show loading alert
@@ -127,22 +131,9 @@ const Review = ({ formData, goToTab }) => {
               <label className="label-main">Married status</label>
               <p className="Signup-Review">{formData.maritalstatus}</p>
             </div>
-            <div className="form-field">
-              <label className="label-main">Password</label>
-              <p className="Signup-Review">{formData.password}</p>
-            </div>
-            <div className="form-field pb-2">
-              <label htmlFor="ProfilePhoto" className="label-main">
-                Upload Profile Image
-              </label>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleImageChange}
-              />
-            </div>
+
           </div>
-     
+
           <div className="col-md-4">
             <div className="form-field">
               <label className="label-main">Family head</label>
@@ -183,6 +174,10 @@ const Review = ({ formData, goToTab }) => {
             <div className="form-field">
               <label className="label-main">Married Sister</label>
               <p className="Signup-Review">{formData.marriedSister}</p>
+            </div>
+            <div className="form-field">
+              <label className="label-main">Password</label>
+              <p className="Signup-Review">{formData.password}</p>
             </div>
           </div>
 
@@ -231,8 +226,18 @@ const Review = ({ formData, goToTab }) => {
               <label className="label-main">Married Brother</label>
               <p className="Signup-Review">{formData.marriedBrother}</p>
             </div>
-            
-           
+
+
+            <div className="form-field pb-2">
+              <label htmlFor="ProfilePhoto" className="label-main">
+                Upload Profile Image
+              </label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+              />
+            </div>
           </div>
         </div>
 

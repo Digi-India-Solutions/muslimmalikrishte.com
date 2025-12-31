@@ -21,10 +21,10 @@ const ContactInfo = ({ formData, handleChange, goToTab, setFormData }) => {
 
 
   useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    // window.scrollTo({
+    //   top: 0,
+    //   behavior: "smooth",
+    // });
 
     const requiredFields = [
       "phone",
@@ -115,6 +115,7 @@ const ContactInfo = ({ formData, handleChange, goToTab, setFormData }) => {
       console.log("Sending email to:", email);
 
       const response = await axios.post('https://api.muslimmalikrishte.com/api/v1/auth/verifyEmail', { email });
+      console.log("Email verification response:=", response.data);
       setIsModalOpen(true);
       // alert("Email verification response:", response.data);
     } catch (error) {
@@ -323,62 +324,7 @@ const ContactInfo = ({ formData, handleChange, goToTab, setFormData }) => {
           </div>
 
           <div className="row">
-            {/* <div className="col-md-4 col-6">
-              <div className="form-field">
-                <label htmlFor="country" className="label-main">
-                  Country <sup>*</sup>
-                </label>
-                <input
-                  type="text"
-                  id="country"
-                  name="country"
-                  value={formData.country}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-            </div> */}
-
-            {/* <div className="col-md-4 col-6">
-              <div className="form-field">
-                <label htmlFor="weddingBudget" className="label-main">
-                  Wedding Budget
-                </label>
-                <input
-                  type="text"
-                  id="weddingBudget"
-                  name="weddingBudget"
-                  value={formData.weddingBudget}
-                  onChange={handleChange}
-                />
-              </div>
-            </div> */}
-            {/* <div className="col-md-4 col-6">
-  <div className="form-field">
-    <label htmlFor="weddingBudget" className="label-main">
-      Wedding Budget
-    </label>
-
-    <select
-      id="weddingBudget"
-      name="weddingBudget"
-      className="select-style"
-      value={formData.weddingBudget}
-      onChange={handleChange}
-    >
-      <option value="">Select Budget</option>
-      <option value="50K-2Lakh">50K - 2 Lakh</option>
-      <option value="2Lakh-5Lakh">2 Lakh - 5 Lakh</option>
-      <option value="5Lakh-10Lakh">5 Lakh - 10 Lakh</option>
-      <option value="10Lakh-20Lakh">10 Lakh - 20 Lakh</option>
-      <option value="20Lakh-40Lakh">20 Lakh - 40 Lakh</option>
-      <option value="40Lakh-70Lakh">40 Lakh - 70 Lakh</option>
-      <option value="70Lakh-1Crore">70 Lakh - 1 Crore +</option>
-    </select>
-  </div>
-</div> */}
-
-
+          
             <div className="col-md-4 col-6">
               <div className="form-field gender-style">
                 <label htmlFor="weddingBudget" className="label-main">

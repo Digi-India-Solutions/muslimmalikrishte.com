@@ -5,14 +5,14 @@ import ContactInfo from "./ContactInfo";
 import Review from "./Review";
 
 const SignupPage = () => {
-  useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  }, []);
+  // useEffect(() => {
+  //   window.scrollTo({
+  //     // top: 0,
+  //     behavior: "smooth",
+  //   });
+  // }, []);
 
-  const [currentTab, setCurrentTab] = useState(1);
+  const [currentTab, setCurrentTab] = useState(2);
   const [formData, setFormData] = useState({
     fullName: "",
     age: "",

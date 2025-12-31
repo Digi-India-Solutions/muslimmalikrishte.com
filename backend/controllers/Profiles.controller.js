@@ -44,34 +44,62 @@ const oppUsers = async (req, res) => {
 const filteredData = async (req, res) => {
   try {
     const { gender, age, city, budget, unqId } = req.body;
-    console.log("SSSXXXXXXXSS:=>", req.body);
-    let id = null;
-    if (unqId) {
-      // Remove MMR or any letters, keep only digits
-      id = unqId.replace(/\D/g, "");   // "MMR0046" → "46"
-    }
-    // 🔥 Build MongoDB query (much faster than filtering in JS)
+    console.log("XXXXXXXDDD::=>", req.body, gender, age, city, budget, unqId);
     const query = {};
 
-    if (gender) query.gender = gender;
-
-    if (id && id.trim() !== "") {
-      query.unqId = id;     // direct match
+    // ✅ Gender (case-insensitive)
+    if (typeof gender === 'string' && gender.trim()) {
+      query.gender = { $regex: `^${gender.trim()}$`, $options: 'i' };
     }
 
-    if (city && city.trim() !== "") query.city = city.trim();
+    // ✅ Unique ID (extract digits only)
+    if (typeof unqId === 'string' && unqId.trim()) {
+      const id = unqId.replace(/\D/g, '');
+      if (id) {
+        query.unqId = id;
+      }
+    }
 
-    if (age) query.age = { $gte: Number(age) };
+    // ✅ City filter (matches BOTH city & state)
+    if (typeof city === 'string' && city.trim()) {
+      query.$or = [
+        { city: { $regex: `^${city.trim()}$`, $options: 'i' } },
+        { state: { $regex: `^${city.trim()}$`, $options: 'i' } }
+      ];
+    }
 
-    if (budget) query.weddingBudget = { $gte: Number(budget) };
+    // ✅ Age (number)
+    if (!isNaN(age) && Number(age) > 0) {
+      query.age = { $gte: Number(age) };
+    }
 
-    const users = await userModel.find(query).sort({ createdAt: -1 });
+    // ✅ Budget (stored as STRING → convert in query)
+    if (!isNaN(budget) && Number(budget) > 0) {
+      query.$expr = {
+        $gte: [
+          { $toInt: '$weddingBudget' },
+          Number(budget)
+        ]
+      };
+    }
 
-    return res.status(200).json({ success: true, total: users.length, data: users, });
+    const users = await userModel
+      .find(query)
+      .sort({ createdAt: -1 })
+      .lean();
+
+    return res.status(200).json({
+      success: true,
+      total: users.length,
+      data: users
+    });
 
   } catch (error) {
-    console.error("Filter Error:", error);
-    return res.status(400).json({ success: false, error: error.message });
+    console.error('Filter Error:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'Internal server error'
+    });
   }
 };
 
@@ -93,4 +121,14 @@ const allCities = async (req, res) => {
   }
 }
 
-module.exports = { oppUsers, filteredData, getSingleUser, allCities };
+const allStates = async (req, res) => {
+  try {
+    const allCity = await userModel.find();
+    console.log("allCity:=>", allCity);
+    return res.status(200).json({ city: allCity });
+  } catch (error) {
+    return res.status(502).json({ error: error });
+  }
+}
+
+module.exports = { oppUsers, filteredData, getSingleUser, allCities, allStates };
