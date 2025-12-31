@@ -3,7 +3,7 @@ const app = express();
 require('dotenv').config();
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
-const morgan = require("morgan");  
+const morgan = require("morgan");
 
 
 const authenticationRouter = require('./Routers/authenticationRouter.js')
@@ -45,7 +45,7 @@ app.get('/', (req, res) => {
 
 app.use('/showpieces', freekaViewroute);
 app.use('/api/v1/auth', authenticationRouter);
-app.use('/api/v1/profiles',  ProfilesRouter);
+app.use('/api/v1/profiles', ProfilesRouter);
 app.use('/api/v1/myprofile', verifyToken, blockByADMINForWork, myprofileRouter);
 app.use('/api/v1/connectionRequest', verifyToken, connectionRouter);
 // app.use('/api/v1/adminPanel',verifyToken,vefiryADMIN,adminRouter);
@@ -55,6 +55,13 @@ app.use('/api/v1/contact', contactRouter);
 
 
 
-app.listen(process.env.PORT || 9000, (() => {
-  console.log("connected to Port", process.env.PORT || 9000);
-}));
+// app.listen(process.env.PORT || 9000, (() => {
+//   console.log("connected to Port", process.env.PORT || 9000);
+// }));
+
+const PORT = process.env.PORT || 4000;
+const HOST = '127.0.0.1';
+
+app.listen(PORT, HOST, () => {
+  console.log(`Server running at http://${HOST}:${PORT}`);
+});
