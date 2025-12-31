@@ -276,7 +276,7 @@ const ProfilePage = () => {
 
               {/* City Filter */}
               <div className="filter-item col-md-3 col-12">
-                <label htmlFor="city">City</label>
+                <label htmlFor="city">State</label>
                 <select
                   id="city"
                   name="city"
