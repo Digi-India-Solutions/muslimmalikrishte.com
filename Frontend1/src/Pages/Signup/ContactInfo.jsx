@@ -164,6 +164,39 @@ const ContactInfo = ({ formData, handleChange, goToTab, setFormData }) => {
     setCountryList(Country.getAllCountries());
   }, []);
 
+  const handleVeriify = () => {
+    if (!formData.weddingBudget) {
+      alert("Please select wedding budget");
+      return;
+    }
+    if (!formData.weddingStyle) {
+      alert("Please select wedding style");
+      return;
+    }
+    if (!formData.phone) {
+      alert("Please enter phone number");
+      return;
+    }
+    if (!formData.email) {
+      alert("Please enter email");
+      return;
+    }
+    if (!formData.country) {
+      alert("Please select country");
+      return;
+    }
+    if (!formData.state) {
+      alert("Please select state");
+      return;
+    }
+    if (!formData.city) {
+      alert("Please select city");
+      return;
+    }
+    sendMail(formData.email);
+    openModal();
+
+  }
   return (
     <>
       <div>
@@ -202,8 +235,7 @@ const ContactInfo = ({ formData, handleChange, goToTab, setFormData }) => {
                 />
               </div>
             </div>
-
-            <div className="col-md-4">
+             <div className="col-md-4 col-6">
               <div className="form-field">
                 <label htmlFor="area" className="label-main">
                   Area <sup>*</sup>
@@ -221,7 +253,7 @@ const ContactInfo = ({ formData, handleChange, goToTab, setFormData }) => {
           </div>
 
           <div className="row">
-            <div className="col-md-4 col-6">
+            {/* <div className="col-md-4 col-6">
               <div className="form-field" >
                 <label htmlFor="country" className="label-main">
                   Country <sup>*</sup>
@@ -239,7 +271,6 @@ const ContactInfo = ({ formData, handleChange, goToTab, setFormData }) => {
                     </option>
                   ))}
                 </select>
-
               </div>
             </div>
 
@@ -264,8 +295,7 @@ const ContactInfo = ({ formData, handleChange, goToTab, setFormData }) => {
                 </select>
               </div>
             </div>
-
-            <div className="col-md-4 col-6">
+             <div className="col-md-4 col-6">
               <div className="form-field" >
                 <label htmlFor="city" className="label-main">
                   City <sup>*</sup>
@@ -285,27 +315,81 @@ const ContactInfo = ({ formData, handleChange, goToTab, setFormData }) => {
                   ))}
                 </select>
               </div>
-            </div>
-
-            {/* <div className="col-md-4 col-6">
+            </div> */}
+            <div className="col-md-4 col-6">
               <div className="form-field">
-                <label htmlFor="city" className="label-main">
-                  City <sup>*</sup>
+                <label className="label-main">
+                  Country <sup>*</sup>
                 </label>
+
                 <input
-                  type="text"
-                  id="city"
-                  name="city"
-                  value={formData.city}
-                  onChange={handleChange}
+                  list="country-list"
+                  name="country"
+                  value={formData.country}
+                  onChange={handleCountryChange}
+                  className="form-control"
+                  placeholder="Search country"
+                  autoComplete="off"
                   required
                 />
+
+                <datalist id="country-list">
+                  {countryList.map((c) => (
+                    <option key={c.isoCode} value={c.name} />
+                  ))}
+                </datalist>
               </div>
-            </div> */}
+            </div>
+            <div className="col-md-4 col-6">
+              <div className="form-field">
+                <label className="label-main">
+                  State <sup>*</sup>
+                </label>
 
+                <input
+                  list="state-list"
+                  name="state"
+                  value={formData.state}
+                  onChange={handleStateChange}
+                  className="form-control"
+                  placeholder="Search state"
+                  disabled={!formData.country}
+                />
 
+                <datalist id="state-list">
+                  {stateList.map((s) => (
+                    <option key={s.isoCode} value={s.name} />
+                  ))}
+                </datalist>
+              </div>
+            </div>
+            <div className="col-md-4 col-6">
+              <div className="form-field">
+                <label className="label-main">
+                  City <sup>*</sup>
+                </label>
 
-            <div className="col-md-4">
+                <input
+                  list="city-list"
+                  name="city"
+                  value={formData.city}
+                  onChange={handleCityChange}
+                  className="form-control"
+                  placeholder="Search city"
+                  disabled={!formData.state}
+                />
+
+                <datalist id="city-list">
+                  {cityList.map((c) => (
+                    <option key={c.name} value={c.name} />
+                  ))}
+                </datalist>
+              </div>
+            </div>
+
+           
+
+            <div className="col-md-4 col-6">
               <div className="form-field">
                 <label htmlFor="pin" className="label-main">
                   Pin Code <sup>*</sup>
@@ -351,13 +435,7 @@ const ContactInfo = ({ formData, handleChange, goToTab, setFormData }) => {
               </div>
             </div>
 
-
-
-
-
-
-
-            <div className="col-md-4">
+            <div className="col-md-4 col-6">
               <div className="form-field gender-style">
                 <label htmlFor="weddingStyle" className="label-main">
                   Wedding Style <sup>*</sup>
@@ -421,8 +499,8 @@ const ContactInfo = ({ formData, handleChange, goToTab, setFormData }) => {
               type="button"
               className="btn bg-info mx-2"
               onClick={() => {
-                sendMail(formData.email);
-                openModal();
+                handleVeriify()
+
               }}
             >
               Verify Email
@@ -458,7 +536,7 @@ const ContactInfo = ({ formData, handleChange, goToTab, setFormData }) => {
                 />
               ))}
             </div> */}
-            
+
             <div className="d-flex justify-content-center">
               {otp.map((digit, index) => (
                 <input
