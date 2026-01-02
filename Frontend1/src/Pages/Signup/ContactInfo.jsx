@@ -324,7 +324,7 @@ const ContactInfo = ({ formData, handleChange, goToTab, setFormData }) => {
           </div>
 
           <div className="row">
-          
+
             <div className="col-md-4 col-6">
               <div className="form-field gender-style">
                 <label htmlFor="weddingBudget" className="label-main">
@@ -443,12 +443,31 @@ const ContactInfo = ({ formData, handleChange, goToTab, setFormData }) => {
 
           <div className="modal-body text-center">
             <p>Please enter the OTP</p>
+            {/* <div className="d-flex justify-content-center">
+              {otp.map((digit, index) => (
+                <input
+                  key={index}
+                  id={`otp-${index}`}
+                  type="text"
+                  maxLength="1"
+                  pattern="[0-9]*"
+                  className="otp-input text-center"
+                  value={digit}
+                  onChange={(e) => handleEmailChange(e, index)}
+                  onKeyDown={(e) => handleKeyDown(e, index)}
+                />
+              ))}
+            </div> */}
+            
             <div className="d-flex justify-content-center">
               {otp.map((digit, index) => (
                 <input
                   key={index}
                   id={`otp-${index}`}
                   type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
+                  // autoComplete={index === 0 ? "one-time-code" : "off"}
                   maxLength="1"
                   className="otp-input text-center"
                   value={digit}
