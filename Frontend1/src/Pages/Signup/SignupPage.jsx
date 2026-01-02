@@ -30,7 +30,6 @@ const SignupPage = () => {
     pehchan: "",
     marriedSister: "",
     marriedBrother: "",
-
     education: "",
     working: "",
     annualIncome: "",
