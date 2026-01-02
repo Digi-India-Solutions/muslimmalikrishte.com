@@ -18,7 +18,7 @@ const ProfilePage = () => {
   const getDETAILS = async () => {
     try {
       const response = await axiosInstance.get(
-        "/api/v1/profiles/opposite/users"
+        `/api/v1/profiles/opposite/users?gender={gender}`
       );
       console.log("adta is==>", response.data);
       setAllPrf(response.data.opp);
@@ -72,6 +72,7 @@ const ProfilePage = () => {
   // 👉 Load profiles + cities
   useEffect(() => {
     const userStatus = localStorage.getItem("user");
+    console.log("userStatus=>", userStatus);
     if (userStatus) {
       getDETAILS();
       cityFilters();
@@ -127,63 +128,63 @@ const ProfilePage = () => {
   // };
 
   const handlefilterSubmit = async () => {
-  try {
-    const isLoggedIn = Boolean(localStorage.getItem("user"));
+    try {
+      const isLoggedIn = Boolean(localStorage.getItem("user"));
 
-    if (isLoggedIn) {
-      // 🔥 Server-side filtering (BEST)
-      const response = await axiosInstance.post(
-        "/api/v1/profiles/profiles/filter",
-        {
-          ...filters,
-          budget: Number(filters.budget) || 0,
-          age: Number(filters.age) || 0,
-        },
-        { headers: { "Content-Type": "application/json" } }
-      );
+      if (isLoggedIn) {
+        // 🔥 Server-side filtering (BEST)
+        const response = await axiosInstance.post(
+          "/api/v1/profiles/profiles/filter",
+          {
+            ...filters,
+            budget: Number(filters.budget) || 0,
+            age: Number(filters.age) || 0,
+          },
+          { headers: { "Content-Type": "application/json" } }
+        );
 
-      setAllPrf(response?.data?.data || []);
-      SetPrf([]); // clear client-filtered data
-      return;
+        setAllPrf(response?.data?.data || []);
+        SetPrf([]); // clear client-filtered data
+        return;
+      }
+
+      // 🧠 Client-side fallback filtering (guest user)
+      const filteredData = allprf.filter((user) => {
+        const genderMatch =
+          !filters.gender ||
+          user.gender?.toLowerCase() === filters.gender.toLowerCase();
+
+        const cityMatch =
+          !filters.city ||
+          user.city?.toLowerCase() === filters.city.toLowerCase() ||
+          user.state?.toLowerCase() === filters.city.toLowerCase();
+
+        const ageMatch =
+          !filters.age || Number(user.age) >= Number(filters.age);
+
+        const budgetMatch =
+          !filters.budget ||
+          Number(user.weddingBudget) >= Number(filters.budget);
+
+        const idMatch =
+          !filters.unqId ||
+          String(user.unqId) === filters.unqId.replace(/\D/g, "");
+
+        return (
+          genderMatch &&
+          cityMatch &&
+          ageMatch &&
+          budgetMatch &&
+          idMatch
+        );
+      });
+
+      SetPrf(filteredData);
+
+    } catch (error) {
+      console.error("Error applying filters:", error);
     }
-
-    // 🧠 Client-side fallback filtering (guest user)
-    const filteredData = allprf.filter((user) => {
-      const genderMatch =
-        !filters.gender ||
-        user.gender?.toLowerCase() === filters.gender.toLowerCase();
-
-      const cityMatch =
-        !filters.city ||
-        user.city?.toLowerCase() === filters.city.toLowerCase() ||
-        user.state?.toLowerCase() === filters.city.toLowerCase();
-
-      const ageMatch =
-        !filters.age || Number(user.age) >= Number(filters.age);
-
-      const budgetMatch =
-        !filters.budget ||
-        Number(user.weddingBudget) >= Number(filters.budget);
-
-      const idMatch =
-        !filters.unqId ||
-        String(user.unqId) === filters.unqId.replace(/\D/g, "");
-
-      return (
-        genderMatch &&
-        cityMatch &&
-        ageMatch &&
-        budgetMatch &&
-        idMatch
-      );
-    });
-
-    SetPrf(filteredData);
-
-  } catch (error) {
-    console.error("Error applying filters:", error);
-  }
-};
+  };
 
   console.log("XXXXXXXXXX::=>XXX", prf, filters)
 

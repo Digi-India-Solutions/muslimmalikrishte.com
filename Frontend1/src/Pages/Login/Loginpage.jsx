@@ -133,7 +133,7 @@ const Loginpage = () => {
         email: email.toLocaleLowerCase(),
         password,
       });
-      // console.log("Login response: ", response.data);
+      console.log("Login response: ", response.data);
 
       localStorage.setItem("user", "true");
 

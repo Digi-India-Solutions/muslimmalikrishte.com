@@ -235,7 +235,7 @@ const ContactInfo = ({ formData, handleChange, goToTab, setFormData }) => {
                 />
               </div>
             </div>
-             <div className="col-md-4 col-6">
+            <div className="col-md-4 col-6">
               <div className="form-field">
                 <label htmlFor="area" className="label-main">
                   Area <sup>*</sup>
@@ -321,7 +321,6 @@ const ContactInfo = ({ formData, handleChange, goToTab, setFormData }) => {
                 <label className="label-main">
                   Country <sup>*</sup>
                 </label>
-
                 <input
                   list="country-list"
                   name="country"
@@ -387,7 +386,7 @@ const ContactInfo = ({ formData, handleChange, goToTab, setFormData }) => {
               </div>
             </div>
 
-           
+
 
             <div className="col-md-4 col-6">
               <div className="form-field">

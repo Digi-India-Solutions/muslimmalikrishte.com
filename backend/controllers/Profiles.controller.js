@@ -2,8 +2,9 @@ const userModel = require('../Model/UserModel.js');
 
 const oppUsers = async (req, res) => {
   try {
+    console.log("req.user.gender=>", req.user);
     // Find users whose gender is not equal to req.user.gender
-    const opp = await userModel.find({ gender: { $ne: req.user.gender } }).sort({ unqId: -1 });
+    const opp = await userModel.find({}).sort({ unqId: -1 });
 
     // If no users are found, send a 400 response with a message
     if (!opp || opp.length === 0) {

@@ -55,13 +55,13 @@ app.use('/api/v1/contact', contactRouter);
 
 
 
-// app.listen(process.env.PORT || 9000, (() => {
-//   console.log("connected to Port", process.env.PORT || 9000);
-// }));
+app.listen(process.env.PORT || 9000, (() => {
+  console.log("connected to Port", process.env.PORT || 9000);
+}));
 
-const PORT = process.env.PORT || 4000;
-const HOST = '127.0.0.1';
+// const PORT = process.env.PORT || 4000;
+// const HOST = '127.0.0.1';
 
-app.listen(PORT, HOST, () => {
-  console.log(`Server running at http://${HOST}:${PORT}`);
-});
+// app.listen(PORT, HOST, () => {
+//   console.log(`Server running at http://${HOST}:${PORT}`);
+// });
