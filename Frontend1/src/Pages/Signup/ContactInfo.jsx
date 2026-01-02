@@ -253,7 +253,7 @@ const ContactInfo = ({ formData, handleChange, goToTab, setFormData }) => {
           </div>
 
           <div className="row">
-            {/* <div className="col-md-4 col-6">
+            <div className="col-md-4 col-6">
               <div className="form-field" >
                 <label htmlFor="country" className="label-main">
                   Country <sup>*</sup>
@@ -315,8 +315,8 @@ const ContactInfo = ({ formData, handleChange, goToTab, setFormData }) => {
                   ))}
                 </select>
               </div>
-            </div> */}
-            <div className="col-md-4 col-6">
+            </div>
+            {/* <div className="col-md-4 col-6">
               <div className="form-field">
                 <label className="label-main">
                   Country <sup>*</sup>
@@ -384,7 +384,7 @@ const ContactInfo = ({ formData, handleChange, goToTab, setFormData }) => {
                   ))}
                 </datalist>
               </div>
-            </div>
+            </div> */}
 
 
 
