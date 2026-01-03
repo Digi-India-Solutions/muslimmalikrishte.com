@@ -301,6 +301,55 @@ sup {
   }
 }
 
+/* Autocomplete Dropdown Styles */
+.position-relative {
+  position: relative;
+}
+
+.autocomplete-dropdown {
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.autocomplete-dropdown > div {
+  padding: 10px 12px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  color: black;
+}
+
+.autocomplete-dropdown > div:hover {
+  background-color: #f5f5f5;
+}
+
+.autocomplete-dropdown > div:last-child {
+  border-bottom: none;
+}
+
+/* Scrollbar styling for dropdown */
+.autocomplete-dropdown::-webkit-scrollbar {
+  width: 6px;
+}
+
+.autocomplete-dropdown::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.autocomplete-dropdown::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 3px;
+}
+
+.autocomplete-dropdown::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
 @media screen and (max-width: 576px) {
   .tab-links-area ul {
     flex-direction: column;

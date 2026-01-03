@@ -19,6 +19,20 @@ const ContactInfo = ({ formData, handleChange, goToTab, setFormData }) => {
   const [stateCode, setStateCode] = useState("");
   const [cityName, setCityName] = useState("");
 
+  // Autocomplete states
+  const [countrySearchInput, setCountrySearchInput] = useState("");
+  const [stateSearchInput, setStateSearchInput] = useState("");
+  const [citySearchInput, setCitySearchInput] = useState("");
+
+  const [countryOpen, setCountryOpen] = useState(false);
+  const [stateOpen, setStateOpen] = useState(false);
+  const [cityOpen, setCityOpen] = useState(false);
+
+  // Filtered lists
+  const [filteredCountries, setFilteredCountries] = useState([]);
+  const [filteredStates, setFilteredStates] = useState([]);
+  const [filteredCities, setFilteredCities] = useState([]);
+
 
   useEffect(() => {
     // window.scrollTo({
@@ -123,45 +137,102 @@ const ContactInfo = ({ formData, handleChange, goToTab, setFormData }) => {
     }
   };
 
-  const handleCountryChange = (e) => {
-    const countryISO = e.target.value;
-    const countryISOs = countryList.find((c) => c.name === countryISO)?.isoCode
+  const handleCountryInputChange = (e) => {
+    const value = e.target.value;
+    setCountrySearchInput(value);
+    
+    if (value.trim() === "") {
+      setFilteredCountries(countryList);
+    } else {
+      const filtered = countryList.filter((c) =>
+        c.name.toLowerCase().includes(value.toLowerCase())
+      );
+      setFilteredCountries(filtered);
+    }
+    setCountryOpen(true);
+  };
+
+  const handleSelectCountry = (country) => {
+    setCountrySearchInput(country.name);
+    const states = State.getStatesOfCountry(country.isoCode);
+    
     setFormData(prev => ({
       ...prev,
-      country: countryISO,
+      country: country.name,
       state: "",
       city: "",
     }));
-
-    setStateList(State.getStatesOfCountry(countryISOs));
+    
+    setStateList(states);
+    setFilteredStates(states);
     setCityList([]);
+    setCountryOpen(false);
+    setStateSearchInput("");
+    setCitySearchInput("");
   };
 
-  const handleStateChange = (e) => {
-    const stateISO = e.target.value;
-    const stateISOs = stateList.find((c) => c.name === stateISO)?.isoCode
-    const countryISOs = countryList.find((c) => c.name === formData.country)?.isoCode
+  const handleStateInputChange = (e) => {
+    const value = e.target.value;
+    setStateSearchInput(value);
+    
+    if (value.trim() === "") {
+      setFilteredStates(stateList);
+    } else {
+      const filtered = stateList.filter((s) =>
+        s.name.toLowerCase().includes(value.toLowerCase())
+      );
+      setFilteredStates(filtered);
+    }
+    setStateOpen(true);
+  };
 
+  const handleSelectState = (state) => {
+    setStateSearchInput(state.name);
+    const countryISOs = countryList.find((c) => c.name === formData.country)?.isoCode;
+    const cities = City.getCitiesOfState(countryISOs, state.isoCode);
+    
     setFormData(prev => ({
       ...prev,
-      state: stateISO,
+      state: state.name,
       city: "",
     }));
 
-    setCityList(City.getCitiesOfState(countryISOs, stateISOs));
+    setCityList(cities);
+    setFilteredCities(cities);
+    setStateOpen(false);
+    setCitySearchInput("");
   };
 
-  const handleCityChange = (e) => {
+  const handleCityInputChange = (e) => {
+    const value = e.target.value;
+    setCitySearchInput(value);
+    
+    if (value.trim() === "") {
+      setFilteredCities(cityList);
+    } else {
+      const filtered = cityList.filter((c) =>
+        c.name.toLowerCase().includes(value.toLowerCase())
+      );
+      setFilteredCities(filtered);
+    }
+    setCityOpen(true);
+  };
+
+  const handleSelectCity = (city) => {
+    setCitySearchInput(city.name);
     setFormData(prev => ({
       ...prev,
-      city: e.target.value,
+      city: city.name,
     }));
+    setCityOpen(false);
   };
 
 
   console.log("HHHHHHH:==>", formData)
   useEffect(() => {
-    setCountryList(Country.getAllCountries());
+    const countries = Country.getAllCountries();
+    setCountryList(countries);
+    setFilteredCountries(countries);
   }, []);
 
   const handleVeriify = () => {
@@ -254,137 +325,149 @@ const ContactInfo = ({ formData, handleChange, goToTab, setFormData }) => {
 
           <div className="row">
             <div className="col-md-4 col-6">
-              <div className="form-field" >
+              <div className="form-field position-relative">
                 <label htmlFor="country" className="label-main">
                   Country <sup>*</sup>
                 </label>
-                <select
+                <input
+                  type="text"
+                  id="country"
                   name="country"
-                  value={formData.country}
-                  onChange={handleCountryChange}
+                  value={countrySearchInput}
+                  onChange={handleCountryInputChange}
+                  onFocus={() => setCountryOpen(true)}
+                  placeholder="Search country..."
                   className="form-control"
-                >
-                  <option value="">Select Country</option>
-                  {countryList.map(item => (
-                    <option key={item.name} value={item.name}>
-                      {item.name}
-                    </option>
-                  ))}
-                </select>
+                  autoComplete="off"
+                />
+                {countryOpen && filteredCountries.length > 0 && (
+                  <div className="autocomplete-dropdown" style={{
+                    position: 'absolute',
+                    top: '100%',
+                    left: 0,
+                    right: 0,
+                    border: '1px solid #ccc',
+                    borderTop: 'none',
+                    maxHeight: '200px',
+                    overflowY: 'auto',
+                    zIndex: 1000,
+                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                  }}>
+                    {filteredCountries.map((country) => (
+                      <div
+                        key={country.isoCode}
+                        onClick={() => handleSelectCountry(country)}
+                        style={{
+                          padding: '10px 12px',
+                          cursor: 'pointer',
+                        }}
+                        onMouseEnter={(e) => e.target.style.backgroundColor = '#666'}
+                        onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
+                      >
+                        {country.name}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
 
             <div className="col-md-4 col-6">
-              <div className="form-field" >
+              <div className="form-field position-relative">
                 <label htmlFor="state" className="label-main">
                   State <sup>*</sup>
                 </label>
-                <select
+                <input
+                  type="text"
+                  id="state"
                   name="state"
-                  value={formData.state}
-                  onChange={handleStateChange}
+                  value={stateSearchInput}
+                  onChange={handleStateInputChange}
+                  onFocus={() => formData.country && setStateOpen(true)}
+                  placeholder="Search state..."
                   className="form-control"
                   disabled={!formData.country}
-                >
-                  <option value="">Select State</option>
-                  {stateList.map(item => (
-                    <option key={item.name} value={item.name}>
-                      {item.name}
-                    </option>
-                  ))}
-                </select>
+                  autoComplete="off"
+                />
+                {stateOpen && filteredStates.length > 0 && (
+                  <div className="autocomplete-dropdown" style={{
+                    position: 'absolute',
+                    top: '100%',
+                    left: 0,
+                    right: 0,
+                    border: '1px solid #ccc',
+                    borderTop: 'none',
+                    maxHeight: '200px',
+                    overflowY: 'auto',
+                    zIndex: 1000,
+                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                  }}>
+                    {filteredStates.map((state) => (
+                      <div
+                        key={state.isoCode}
+                        onClick={() => handleSelectState(state)}
+                        style={{
+                          padding: '10px 12px',
+                          cursor: 'pointer',
+                        }}
+                        onMouseEnter={(e) => e.target.style.backgroundColor = '#666'}
+                        onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
+                      >
+                        {state.name}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
-             <div className="col-md-4 col-6">
-              <div className="form-field" >
+            <div className="col-md-4 col-6">
+              <div className="form-field position-relative">
                 <label htmlFor="city" className="label-main">
                   City <sup>*</sup>
                 </label>
-                <select
+                <input
+                  type="text"
+                  id="city"
                   name="city"
-                  value={formData.city}
-                  onChange={handleCityChange}
+                  value={citySearchInput}
+                  onChange={handleCityInputChange}
+                  onFocus={() => formData.state && setCityOpen(true)}
+                  placeholder="Search city..."
                   className="form-control"
                   disabled={!formData.state}
-                >
-                  <option value="">Select City</option>
-                  {cityList.map(item => (
-                    <option key={item.name} value={item.name}>
-                      {item.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-            {/* <div className="col-md-4 col-6">
-              <div className="form-field">
-                <label className="label-main">
-                  Country <sup>*</sup>
-                </label>
-                <input
-                  list="country-list"
-                  name="country"
-                  value={formData.country}
-                  onChange={handleCountryChange}
-                  className="form-control"
-                  placeholder="Search country"
                   autoComplete="off"
-                  required
                 />
-
-                <datalist id="country-list">
-                  {countryList.map((c) => (
-                    <option key={c.isoCode} value={c.name} />
-                  ))}
-                </datalist>
+                {cityOpen && filteredCities.length > 0 && (
+                  <div className="autocomplete-dropdown" style={{
+                    position: 'absolute',
+                    top: '100%',
+                    left: 0,
+                    right: 0,
+                    border: '1px solid #ccc',
+                    borderTop: 'none',
+                    maxHeight: '200px',
+                    overflowY: 'auto',
+                    zIndex: 1000,
+                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                  }}>
+                    {filteredCities.map((city) => (
+                      <div
+                        key={city.name}
+                        onClick={() => handleSelectCity(city)}
+                        style={{
+                          padding: '10px 12px',
+                          cursor: 'pointer',
+                        }}
+                        onMouseEnter={(e) => e.target.style.backgroundColor = '#666'}
+                        onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
+                      >
+                        {city.name}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
-            <div className="col-md-4 col-6">
-              <div className="form-field">
-                <label className="label-main">
-                  State <sup>*</sup>
-                </label>
-
-                <input
-                  list="state-list"
-                  name="state"
-                  value={formData.state}
-                  onChange={handleStateChange}
-                  className="form-control"
-                  placeholder="Search state"
-                  disabled={!formData.country}
-                />
-
-                <datalist id="state-list">
-                  {stateList.map((s) => (
-                    <option key={s.isoCode} value={s.name} />
-                  ))}
-                </datalist>
-              </div>
-            </div>
-            <div className="col-md-4 col-6">
-              <div className="form-field">
-                <label className="label-main">
-                  City <sup>*</sup>
-                </label>
-
-                <input
-                  list="city-list"
-                  name="city"
-                  value={formData.city}
-                  onChange={handleCityChange}
-                  className="form-control"
-                  placeholder="Search city"
-                  disabled={!formData.state}
-                />
-
-                <datalist id="city-list">
-                  {cityList.map((c) => (
-                    <option key={c.name} value={c.name} />
-                  ))}
-                </datalist>
-              </div>
-            </div> */}
 
 
 
