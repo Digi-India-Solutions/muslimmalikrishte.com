@@ -11,6 +11,20 @@ import { City, Country, State } from 'country-state-city';
 
 ReactModal.setAppElement("#root");
 
+// Helper function to format budget value
+const getBudgetLabel = (value) => {
+  const budgetMap = {
+    200000: "50K - 2 Lakh",
+    500000: "2 Lakh - 5 Lakh",
+    1000000: "5 Lakh - 10 Lakh",
+    2000000: "10 Lakh - 20 Lakh",
+    4000000: "20 Lakh - 40 Lakh",
+    7000000: "40 Lakh - 70 Lakh",
+    10000000: "70 Lakh - 1 Crore +"
+  };
+  return budgetMap[value] || value;
+};
+
 const UserProfile = () => {
   const [countryList, setCountryList] = useState([])
   const [stateList, setStateList] = useState([])
@@ -491,12 +505,18 @@ const UserProfile = () => {
                           familyHead: "Family Head",
                         };
 
+                        // Format the display value
+                        let displayValue = value;
+                        if (key === "weddingBudget") {
+                          displayValue = getBudgetLabel(value);
+                        }
+
                         return (
                           <div className="row" key={key}>
                             <div className="col-sm-3">
                               <h6 className="mb-0">{labelMap[key] || key}</h6>
                             </div>
-                            <div className="col-sm-9 text-secondary">{value}</div>
+                            <div className="col-sm-9 text-secondary">{displayValue}</div>
                             <hr />
                           </div>
                         );
