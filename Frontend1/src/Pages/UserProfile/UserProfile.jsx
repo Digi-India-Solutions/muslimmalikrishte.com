@@ -610,7 +610,7 @@ const UserProfile = () => {
                           className="form-control"
                         >
                           <option value="">Select Country</option>
-                          {countryList?.map((item, i) => <option value={item?.name}>{item?.name}</option>)}  <option value="Unmarried">Never Married</option>
+                          {countryList?.map((item, i) => <option value={item?.name}>{item?.name}</option>)}
 
                         </select>
                       ) : key === "state" ? (
@@ -622,7 +622,7 @@ const UserProfile = () => {
                           className="form-control"
                         >
                           <option value="">Select State</option>
-                          {stateList?.map((item, i) => <option value={item?.name}>{item?.name}</option>)}  <option value="Unmarried">Never Married</option>
+                          {stateList?.map((item, i) => <option value={item?.name}>{item?.name}</option>)}
 
                         </select>
                       ) : key === "city" ? (
@@ -634,7 +634,7 @@ const UserProfile = () => {
                           className="form-control"
                         >
                           <option value="">Select City</option>
-                          {cityList?.map((item, i) => <option value={item?.name}>{item?.name}</option>)}  <option value="Unmarried">Never Married</option>
+                          {cityList?.map((item, i) => <option value={item?.name}>{item?.name}</option>)}
 
                         </select>
                       ) : (

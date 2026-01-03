@@ -106,14 +106,14 @@ const SignupPage = () => {
 
             {/* Form Panels */}
             <div className="tab-form-area">
-              {currentTab === 1 && (
+              {currentTab === 2 && (
                 <BasicInfo
                   formData={formData}
                   handleChange={handleChange}
                   goToTab={goToTab}
                 />
               )}
-              {currentTab === 2 && (
+              {currentTab === 1 && (
                 <ContactInfo
                   formData={formData}
                   setFormData={setFormData}
